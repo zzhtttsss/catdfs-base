@@ -7,7 +7,7 @@ message DNRegisterArgs {
 }
 
 message DNRegisterReply {
-  uint32 Id = 1;
+  string Id = 1;
   string Addr = 2;
 }
 
