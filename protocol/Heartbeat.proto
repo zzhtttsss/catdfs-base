@@ -1,0 +1,15 @@
+syntax="proto3";
+package pb;
+option go_package="/protocol/pb";
+
+message HeartbeatArgs {
+  string Id = 1;
+}
+
+message HeartbeatReply {
+  int32 Code = 1;
+}
+
+service HeartbeatService {
+  rpc Heartbeat(HeartbeatArgs) returns(HeartbeatReply);
+}
