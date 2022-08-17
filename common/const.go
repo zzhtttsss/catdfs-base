@@ -18,3 +18,26 @@ const (
 	Alive   = 1
 	Waiting = 2
 )
+
+// common error code
+const (
+	Connect2ClientFailed      = 1001
+	Connect2MasterFailed      = 1002
+	Connect2ChunkServerFailed = 1003
+)
+
+// client error code
+const (
+	ClientRPCServerFailed = 2001
+)
+
+// master error code
+const (
+	MasterRPCServerFailed = 3001
+	MasterRegisterFailed  = 3002
+)
+
+// chunkserver error code
+const (
+	ChunkServerRPCServerFailed = 4001
+)
