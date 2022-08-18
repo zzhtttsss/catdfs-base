@@ -2,8 +2,17 @@ package common
 
 // Config key string
 const (
+	// common config
 	MasterAddr = "master.addr"
 	MasterPort = "master.port"
+
+	// master config
+	ChunkWaitTime = "chunk.waitTime"
+	ChunkDieTime  = "chunk.dieTime"
+
+	// chunk server config
+	ChunkHeartbeatReconnectCount = "chunk.heartbeat.reconnectCount"
+	ChunkHeartbeatSendTime       = "chunk.heartbeat.sendTime"
 )
 
 // Network const value
