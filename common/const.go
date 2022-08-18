@@ -35,6 +35,8 @@ const (
 const (
 	MasterRPCServerFailed = 3001
 	MasterRegisterFailed  = 3002
+	MasterHeartbeatFailed = 3003
+	ChunkServerNotFound   = 3004
 )
 
 // chunkserver error code
