@@ -51,4 +51,6 @@ const (
 // chunkserver error code
 const (
 	ChunkServerRPCServerFailed = 4001
+	ChunkServerRegisterFailed  = 4002
+	ChunkServerHeartbeatFailed = 4003
 )
