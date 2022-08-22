@@ -1,0 +1,26 @@
+syntax="proto3";
+package pb;
+option go_package="/pb";
+
+message CheckArgs4AddArgs {
+  string Path = 1;
+  string FileName = 2;
+  int64 Size = 3;
+}
+
+message CheckArgs4AddReply {
+  string fileNodeId = 1;
+}
+
+message GetDataNodes4AddArgs {
+  int32 chunkIndex = 1;
+}
+
+message GetDataNodes4AddReply {
+  repeated string dataNodeAddress = 1;
+}
+
+service MasterAdd {
+  rpc CheckArgs4Add(CheckArgs4AddArgs) returns(CheckArgs4AddReply);
+  rpc GetDataNodes4Add(GetDataNodes4AddArgs) returns(GetDataNodes4AddReply);
+}
