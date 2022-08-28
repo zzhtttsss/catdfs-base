@@ -10,14 +10,18 @@ message CheckArgs4AddArgs {
 
 message CheckArgs4AddReply {
   string fileNodeId = 1;
+  int32 chunkNum = 2;
 }
 
 message GetDataNodes4AddArgs {
-  int32 chunkIndex = 1;
+  string fileNodeId = 1;
+  int32 chunkIndex = 2;
 }
 
 message GetDataNodes4AddReply {
-  repeated string dataNodeAddress = 1;
+  repeated string dataNodes = 1;
+  string primaryNode = 2;
+
 }
 
 service MasterAdd {
