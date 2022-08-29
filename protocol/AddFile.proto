@@ -2,22 +2,35 @@ syntax="proto3";
 package pb;
 option go_package="/pb";
 
+// CheckArgs4AddArgs
+// path: target path to add file
+// fileName: name of the file to add
+// size: size of the file. Use bytes as the unit of measurement which means 1kb will be 1024.
 message CheckArgs4AddArgs {
-  string Path = 1;
-  string FileName = 2;
-  int64 Size = 3;
+  string path = 1;
+  string fileName = 2;
+  int64 size = 3;
 }
 
+// CheckArgs4AddReply
+// fileNodeId: file id stored in the directory tree
+// chunkNum: the number of chunks the file will be cut into
 message CheckArgs4AddReply {
   string fileNodeId = 1;
   int32 chunkNum = 2;
 }
 
+// GetDataNodes4AddArgs
+// fileNodeId: file id stored in the directory tree
+// chunkIndex: the index of chunk
 message GetDataNodes4AddArgs {
   string fileNodeId = 1;
   int32 chunkIndex = 2;
 }
 
+// GetDataNodes4AddReply
+// dataNodes: ids of all DataNodes that will store this chunk
+// primaryNode: id of the primary DataNode
 message GetDataNodes4AddReply {
   repeated string dataNodes = 1;
   string primaryNode = 2;
@@ -25,6 +38,11 @@ message GetDataNodes4AddReply {
 }
 
 service MasterAdd {
+  // CheckArgs4Add Called by client.
+  // Check whether the path and file name entered by the user in the Add operation are legal.
   rpc CheckArgs4Add(CheckArgs4AddArgs) returns(CheckArgs4AddReply);
+
+  // GetDataNodes4Add Called by client.
+  // Allocate some DataNode to store a Chunk and select the primary DataNode
   rpc GetDataNodes4Add(GetDataNodes4AddArgs) returns(GetDataNodes4AddReply);
 }

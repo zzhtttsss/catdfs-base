@@ -22,7 +22,11 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type MasterAddClient interface {
+	// CheckArgs4Add Called by client.
+	// Check whether the path and file name entered by the user in the Add operation are legal.
 	CheckArgs4Add(ctx context.Context, in *CheckArgs4AddArgs, opts ...grpc.CallOption) (*CheckArgs4AddReply, error)
+	// GetDataNodes4Add Called by client.
+	// Allocate some DataNode to store a Chunk and select the primary DataNode
 	GetDataNodes4Add(ctx context.Context, in *GetDataNodes4AddArgs, opts ...grpc.CallOption) (*GetDataNodes4AddReply, error)
 }
 
@@ -56,7 +60,11 @@ func (c *masterAddClient) GetDataNodes4Add(ctx context.Context, in *GetDataNodes
 // All implementations must embed UnimplementedMasterAddServer
 // for forward compatibility
 type MasterAddServer interface {
+	// CheckArgs4Add Called by client.
+	// Check whether the path and file name entered by the user in the Add operation are legal.
 	CheckArgs4Add(context.Context, *CheckArgs4AddArgs) (*CheckArgs4AddReply, error)
+	// GetDataNodes4Add Called by client.
+	// Allocate some DataNode to store a Chunk and select the primary DataNode
 	GetDataNodes4Add(context.Context, *GetDataNodes4AddArgs) (*GetDataNodes4AddReply, error)
 	mustEmbedUnimplementedMasterAddServer()
 }
