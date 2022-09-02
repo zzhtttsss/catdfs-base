@@ -63,5 +63,5 @@ message TransferFileReply {
 }
 
 service PipLineService {
-  rpc TransferFile(TransferFileArgs) returns(TransferFileReply);
+  rpc TransferFile(stream TransferFileArgs) returns(TransferFileReply);
 }
