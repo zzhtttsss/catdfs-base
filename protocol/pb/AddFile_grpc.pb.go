@@ -18,10 +18,10 @@ import (
 // Requires gRPC-Go v1.32.0 or later.
 const _ = grpc.SupportPackageIsVersion7
 
-// MasterAddClient is the client API for MasterAdd service.
+// MasterAddServiceClient is the client API for MasterAddService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type MasterAddClient interface {
+type MasterAddServiceClient interface {
 	// CheckArgs4Add Called by client.
 	// Check whether the path and file name entered by the user in the Add operation are legal.
 	CheckArgs4Add(ctx context.Context, in *CheckArgs4AddArgs, opts ...grpc.CallOption) (*CheckArgs4AddReply, error)
@@ -30,118 +30,204 @@ type MasterAddClient interface {
 	GetDataNodes4Add(ctx context.Context, in *GetDataNodes4AddArgs, opts ...grpc.CallOption) (*GetDataNodes4AddReply, error)
 }
 
-type masterAddClient struct {
+type masterAddServiceClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewMasterAddClient(cc grpc.ClientConnInterface) MasterAddClient {
-	return &masterAddClient{cc}
+func NewMasterAddServiceClient(cc grpc.ClientConnInterface) MasterAddServiceClient {
+	return &masterAddServiceClient{cc}
 }
 
-func (c *masterAddClient) CheckArgs4Add(ctx context.Context, in *CheckArgs4AddArgs, opts ...grpc.CallOption) (*CheckArgs4AddReply, error) {
+func (c *masterAddServiceClient) CheckArgs4Add(ctx context.Context, in *CheckArgs4AddArgs, opts ...grpc.CallOption) (*CheckArgs4AddReply, error) {
 	out := new(CheckArgs4AddReply)
-	err := c.cc.Invoke(ctx, "/pb.MasterAdd/CheckArgs4Add", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/pb.MasterAddService/CheckArgs4Add", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *masterAddClient) GetDataNodes4Add(ctx context.Context, in *GetDataNodes4AddArgs, opts ...grpc.CallOption) (*GetDataNodes4AddReply, error) {
+func (c *masterAddServiceClient) GetDataNodes4Add(ctx context.Context, in *GetDataNodes4AddArgs, opts ...grpc.CallOption) (*GetDataNodes4AddReply, error) {
 	out := new(GetDataNodes4AddReply)
-	err := c.cc.Invoke(ctx, "/pb.MasterAdd/GetDataNodes4Add", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/pb.MasterAddService/GetDataNodes4Add", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// MasterAddServer is the server API for MasterAdd service.
-// All implementations must embed UnimplementedMasterAddServer
+// MasterAddServiceServer is the server API for MasterAddService service.
+// All implementations must embed UnimplementedMasterAddServiceServer
 // for forward compatibility
-type MasterAddServer interface {
+type MasterAddServiceServer interface {
 	// CheckArgs4Add Called by client.
 	// Check whether the path and file name entered by the user in the Add operation are legal.
 	CheckArgs4Add(context.Context, *CheckArgs4AddArgs) (*CheckArgs4AddReply, error)
 	// GetDataNodes4Add Called by client.
 	// Allocate some DataNode to store a Chunk and select the primary DataNode
 	GetDataNodes4Add(context.Context, *GetDataNodes4AddArgs) (*GetDataNodes4AddReply, error)
-	mustEmbedUnimplementedMasterAddServer()
+	mustEmbedUnimplementedMasterAddServiceServer()
 }
 
-// UnimplementedMasterAddServer must be embedded to have forward compatible implementations.
-type UnimplementedMasterAddServer struct {
+// UnimplementedMasterAddServiceServer must be embedded to have forward compatible implementations.
+type UnimplementedMasterAddServiceServer struct {
 }
 
-func (UnimplementedMasterAddServer) CheckArgs4Add(context.Context, *CheckArgs4AddArgs) (*CheckArgs4AddReply, error) {
+func (UnimplementedMasterAddServiceServer) CheckArgs4Add(context.Context, *CheckArgs4AddArgs) (*CheckArgs4AddReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CheckArgs4Add not implemented")
 }
-func (UnimplementedMasterAddServer) GetDataNodes4Add(context.Context, *GetDataNodes4AddArgs) (*GetDataNodes4AddReply, error) {
+func (UnimplementedMasterAddServiceServer) GetDataNodes4Add(context.Context, *GetDataNodes4AddArgs) (*GetDataNodes4AddReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetDataNodes4Add not implemented")
 }
-func (UnimplementedMasterAddServer) mustEmbedUnimplementedMasterAddServer() {}
+func (UnimplementedMasterAddServiceServer) mustEmbedUnimplementedMasterAddServiceServer() {}
 
-// UnsafeMasterAddServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to MasterAddServer will
+// UnsafeMasterAddServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to MasterAddServiceServer will
 // result in compilation errors.
-type UnsafeMasterAddServer interface {
-	mustEmbedUnimplementedMasterAddServer()
+type UnsafeMasterAddServiceServer interface {
+	mustEmbedUnimplementedMasterAddServiceServer()
 }
 
-func RegisterMasterAddServer(s grpc.ServiceRegistrar, srv MasterAddServer) {
-	s.RegisterService(&MasterAdd_ServiceDesc, srv)
+func RegisterMasterAddServiceServer(s grpc.ServiceRegistrar, srv MasterAddServiceServer) {
+	s.RegisterService(&MasterAddService_ServiceDesc, srv)
 }
 
-func _MasterAdd_CheckArgs4Add_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _MasterAddService_CheckArgs4Add_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CheckArgs4AddArgs)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(MasterAddServer).CheckArgs4Add(ctx, in)
+		return srv.(MasterAddServiceServer).CheckArgs4Add(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/pb.MasterAdd/CheckArgs4Add",
+		FullMethod: "/pb.MasterAddService/CheckArgs4Add",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MasterAddServer).CheckArgs4Add(ctx, req.(*CheckArgs4AddArgs))
+		return srv.(MasterAddServiceServer).CheckArgs4Add(ctx, req.(*CheckArgs4AddArgs))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _MasterAdd_GetDataNodes4Add_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _MasterAddService_GetDataNodes4Add_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetDataNodes4AddArgs)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(MasterAddServer).GetDataNodes4Add(ctx, in)
+		return srv.(MasterAddServiceServer).GetDataNodes4Add(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/pb.MasterAdd/GetDataNodes4Add",
+		FullMethod: "/pb.MasterAddService/GetDataNodes4Add",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MasterAddServer).GetDataNodes4Add(ctx, req.(*GetDataNodes4AddArgs))
+		return srv.(MasterAddServiceServer).GetDataNodes4Add(ctx, req.(*GetDataNodes4AddArgs))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// MasterAdd_ServiceDesc is the grpc.ServiceDesc for MasterAdd service.
+// MasterAddService_ServiceDesc is the grpc.ServiceDesc for MasterAddService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var MasterAdd_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "pb.MasterAdd",
-	HandlerType: (*MasterAddServer)(nil),
+var MasterAddService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "pb.MasterAddService",
+	HandlerType: (*MasterAddServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "CheckArgs4Add",
-			Handler:    _MasterAdd_CheckArgs4Add_Handler,
+			Handler:    _MasterAddService_CheckArgs4Add_Handler,
 		},
 		{
 			MethodName: "GetDataNodes4Add",
-			Handler:    _MasterAdd_GetDataNodes4Add_Handler,
+			Handler:    _MasterAddService_GetDataNodes4Add_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "AddFile.proto",
+}
+
+// PipLineServiceClient is the client API for PipLineService service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+type PipLineServiceClient interface {
+	TransferFile(ctx context.Context, in *TransferFileArgs, opts ...grpc.CallOption) (*TransferFileReply, error)
+}
+
+type pipLineServiceClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewPipLineServiceClient(cc grpc.ClientConnInterface) PipLineServiceClient {
+	return &pipLineServiceClient{cc}
+}
+
+func (c *pipLineServiceClient) TransferFile(ctx context.Context, in *TransferFileArgs, opts ...grpc.CallOption) (*TransferFileReply, error) {
+	out := new(TransferFileReply)
+	err := c.cc.Invoke(ctx, "/pb.PipLineService/TransferFile", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// PipLineServiceServer is the server API for PipLineService service.
+// All implementations must embed UnimplementedPipLineServiceServer
+// for forward compatibility
+type PipLineServiceServer interface {
+	TransferFile(context.Context, *TransferFileArgs) (*TransferFileReply, error)
+	mustEmbedUnimplementedPipLineServiceServer()
+}
+
+// UnimplementedPipLineServiceServer must be embedded to have forward compatible implementations.
+type UnimplementedPipLineServiceServer struct {
+}
+
+func (UnimplementedPipLineServiceServer) TransferFile(context.Context, *TransferFileArgs) (*TransferFileReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method TransferFile not implemented")
+}
+func (UnimplementedPipLineServiceServer) mustEmbedUnimplementedPipLineServiceServer() {}
+
+// UnsafePipLineServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to PipLineServiceServer will
+// result in compilation errors.
+type UnsafePipLineServiceServer interface {
+	mustEmbedUnimplementedPipLineServiceServer()
+}
+
+func RegisterPipLineServiceServer(s grpc.ServiceRegistrar, srv PipLineServiceServer) {
+	s.RegisterService(&PipLineService_ServiceDesc, srv)
+}
+
+func _PipLineService_TransferFile_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(TransferFileArgs)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PipLineServiceServer).TransferFile(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/pb.PipLineService/TransferFile",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PipLineServiceServer).TransferFile(ctx, req.(*TransferFileArgs))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// PipLineService_ServiceDesc is the grpc.ServiceDesc for PipLineService service.
+// It's only intended for direct use with grpc.RegisterService,
+// and not to be introspected or modified (even as a copy)
+var PipLineService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "pb.PipLineService",
+	HandlerType: (*PipLineServiceServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "TransferFile",
+			Handler:    _PipLineService_TransferFile_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

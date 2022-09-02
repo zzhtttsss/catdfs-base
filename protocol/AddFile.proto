@@ -37,7 +37,7 @@ message GetDataNodes4AddReply {
 
 }
 
-service MasterAdd {
+service MasterAddService {
   // CheckArgs4Add Called by client.
   // Check whether the path and file name entered by the user in the Add operation are legal.
   rpc CheckArgs4Add(CheckArgs4AddArgs) returns(CheckArgs4AddReply);
@@ -45,4 +45,23 @@ service MasterAdd {
   // GetDataNodes4Add Called by client.
   // Allocate some DataNode to store a Chunk and select the primary DataNode
   rpc GetDataNodes4Add(GetDataNodes4AddArgs) returns(GetDataNodes4AddReply);
+}
+
+// TransferFileArgs
+// fileNodeId: file id stored in the directory tree
+// chunkIndex: the index of chunk
+message TransferFileArgs {
+  string chunkId = 1;
+  bytes chunk = 2;
+}
+
+// TransferFileReply
+// dataNodes: ids of all DataNodes that will store this chunk
+// primaryNode: id of the primary DataNode
+message TransferFileReply {
+
+}
+
+service PipLineService {
+  rpc TransferFile(TransferFileArgs) returns(TransferFileReply);
 }

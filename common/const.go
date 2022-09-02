@@ -9,6 +9,7 @@ const (
 	// master config
 	ChunkWaitTime = "chunk.waitTime"
 	ChunkDieTime  = "chunk.dieTime"
+	ReplicaNum    = "replicaNum"
 
 	// chunk server config
 	ChunkHeartbeatReconnectCount = "chunk.heartbeat.reconnectCount"
