@@ -152,7 +152,7 @@ var MasterAddService_ServiceDesc = grpc.ServiceDesc{
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type PipLineServiceClient interface {
-	TransferFile(ctx context.Context, in *TransferFileArgs, opts ...grpc.CallOption) (*TransferFileReply, error)
+	TransferFile(ctx context.Context, opts ...grpc.CallOption) (PipLineService_TransferFileClient, error)
 }
 
 type pipLineServiceClient struct {
@@ -163,20 +163,45 @@ func NewPipLineServiceClient(cc grpc.ClientConnInterface) PipLineServiceClient {
 	return &pipLineServiceClient{cc}
 }
 
-func (c *pipLineServiceClient) TransferFile(ctx context.Context, in *TransferFileArgs, opts ...grpc.CallOption) (*TransferFileReply, error) {
-	out := new(TransferFileReply)
-	err := c.cc.Invoke(ctx, "/pb.PipLineService/TransferFile", in, out, opts...)
+func (c *pipLineServiceClient) TransferFile(ctx context.Context, opts ...grpc.CallOption) (PipLineService_TransferFileClient, error) {
+	stream, err := c.cc.NewStream(ctx, &PipLineService_ServiceDesc.Streams[0], "/pb.PipLineService/TransferFile", opts...)
 	if err != nil {
 		return nil, err
 	}
-	return out, nil
+	x := &pipLineServiceTransferFileClient{stream}
+	return x, nil
+}
+
+type PipLineService_TransferFileClient interface {
+	Send(*TransferFileArgs) error
+	CloseAndRecv() (*TransferFileReply, error)
+	grpc.ClientStream
+}
+
+type pipLineServiceTransferFileClient struct {
+	grpc.ClientStream
+}
+
+func (x *pipLineServiceTransferFileClient) Send(m *TransferFileArgs) error {
+	return x.ClientStream.SendMsg(m)
+}
+
+func (x *pipLineServiceTransferFileClient) CloseAndRecv() (*TransferFileReply, error) {
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	m := new(TransferFileReply)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
 }
 
 // PipLineServiceServer is the server API for PipLineService service.
 // All implementations must embed UnimplementedPipLineServiceServer
 // for forward compatibility
 type PipLineServiceServer interface {
-	TransferFile(context.Context, *TransferFileArgs) (*TransferFileReply, error)
+	TransferFile(PipLineService_TransferFileServer) error
 	mustEmbedUnimplementedPipLineServiceServer()
 }
 
@@ -184,8 +209,8 @@ type PipLineServiceServer interface {
 type UnimplementedPipLineServiceServer struct {
 }
 
-func (UnimplementedPipLineServiceServer) TransferFile(context.Context, *TransferFileArgs) (*TransferFileReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method TransferFile not implemented")
+func (UnimplementedPipLineServiceServer) TransferFile(PipLineService_TransferFileServer) error {
+	return status.Errorf(codes.Unimplemented, "method TransferFile not implemented")
 }
 func (UnimplementedPipLineServiceServer) mustEmbedUnimplementedPipLineServiceServer() {}
 
@@ -200,22 +225,30 @@ func RegisterPipLineServiceServer(s grpc.ServiceRegistrar, srv PipLineServiceSer
 	s.RegisterService(&PipLineService_ServiceDesc, srv)
 }
 
-func _PipLineService_TransferFile_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(TransferFileArgs)
-	if err := dec(in); err != nil {
+func _PipLineService_TransferFile_Handler(srv interface{}, stream grpc.ServerStream) error {
+	return srv.(PipLineServiceServer).TransferFile(&pipLineServiceTransferFileServer{stream})
+}
+
+type PipLineService_TransferFileServer interface {
+	SendAndClose(*TransferFileReply) error
+	Recv() (*TransferFileArgs, error)
+	grpc.ServerStream
+}
+
+type pipLineServiceTransferFileServer struct {
+	grpc.ServerStream
+}
+
+func (x *pipLineServiceTransferFileServer) SendAndClose(m *TransferFileReply) error {
+	return x.ServerStream.SendMsg(m)
+}
+
+func (x *pipLineServiceTransferFileServer) Recv() (*TransferFileArgs, error) {
+	m := new(TransferFileArgs)
+	if err := x.ServerStream.RecvMsg(m); err != nil {
 		return nil, err
 	}
-	if interceptor == nil {
-		return srv.(PipLineServiceServer).TransferFile(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/pb.PipLineService/TransferFile",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(PipLineServiceServer).TransferFile(ctx, req.(*TransferFileArgs))
-	}
-	return interceptor(ctx, in, info, handler)
+	return m, nil
 }
 
 // PipLineService_ServiceDesc is the grpc.ServiceDesc for PipLineService service.
@@ -224,12 +257,13 @@ func _PipLineService_TransferFile_Handler(srv interface{}, ctx context.Context, 
 var PipLineService_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "pb.PipLineService",
 	HandlerType: (*PipLineServiceServer)(nil),
-	Methods: []grpc.MethodDesc{
+	Methods:     []grpc.MethodDesc{},
+	Streams: []grpc.StreamDesc{
 		{
-			MethodName: "TransferFile",
-			Handler:    _PipLineService_TransferFile_Handler,
+			StreamName:    "TransferFile",
+			Handler:       _PipLineService_TransferFile_Handler,
+			ClientStreams: true,
 		},
 	},
-	Streams:  []grpc.StreamDesc{},
 	Metadata: "AddFile.proto",
 }
