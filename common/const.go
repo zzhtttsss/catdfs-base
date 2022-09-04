@@ -5,6 +5,7 @@ const (
 	// common config
 	MasterAddr = "master.addr"
 	MasterPort = "master.port"
+	ChunkPort  = "chunk.port"
 
 	// master config
 	ChunkWaitTime = "chunk.waitTime"
@@ -14,12 +15,14 @@ const (
 	// chunk server config
 	ChunkHeartbeatReconnectCount = "chunk.heartbeat.reconnectCount"
 	ChunkHeartbeatSendTime       = "chunk.heartbeat.sendTime"
+	ChunkStoragePath             = "chunk.storage.path"
 )
 
 // Network const value
 const (
-	TCP     = "tcp"
-	LocalIP = "127.0.0.1"
+	TCP              = "tcp"
+	LocalIP          = "127.0.0.1"
+	AddressDelimiter = ":"
 )
 
 // Datanode status
@@ -55,4 +58,9 @@ const (
 	ChunkServerRPCServerFailed = 4001
 	ChunkServerRegisterFailed  = 4002
 	ChunkServerHeartbeatFailed = 4003
+)
+
+// chunkserver const
+const (
+	MasterConnectKey = "master"
 )

@@ -50,9 +50,8 @@ service MasterAddService {
 // TransferFileArgs
 // fileNodeId: file id stored in the directory tree
 // chunkIndex: the index of chunk
-message TransferFileArgs {
-  string chunkId = 1;
-  bytes chunk = 2;
+message PieceOfChunk {
+  bytes piece = 1;
 }
 
 // TransferFileReply
@@ -63,5 +62,5 @@ message TransferFileReply {
 }
 
 service PipLineService {
-  rpc TransferFile(stream TransferFileArgs) returns(TransferFileReply);
+  rpc TransferFile(stream PieceOfChunk) returns(TransferFileReply);
 }

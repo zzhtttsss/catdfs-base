@@ -173,7 +173,7 @@ func (c *pipLineServiceClient) TransferFile(ctx context.Context, opts ...grpc.Ca
 }
 
 type PipLineService_TransferFileClient interface {
-	Send(*TransferFileArgs) error
+	Send(*PieceOfChunk) error
 	CloseAndRecv() (*TransferFileReply, error)
 	grpc.ClientStream
 }
@@ -182,7 +182,7 @@ type pipLineServiceTransferFileClient struct {
 	grpc.ClientStream
 }
 
-func (x *pipLineServiceTransferFileClient) Send(m *TransferFileArgs) error {
+func (x *pipLineServiceTransferFileClient) Send(m *PieceOfChunk) error {
 	return x.ClientStream.SendMsg(m)
 }
 
@@ -231,7 +231,7 @@ func _PipLineService_TransferFile_Handler(srv interface{}, stream grpc.ServerStr
 
 type PipLineService_TransferFileServer interface {
 	SendAndClose(*TransferFileReply) error
-	Recv() (*TransferFileArgs, error)
+	Recv() (*PieceOfChunk, error)
 	grpc.ServerStream
 }
 
@@ -243,8 +243,8 @@ func (x *pipLineServiceTransferFileServer) SendAndClose(m *TransferFileReply) er
 	return x.ServerStream.SendMsg(m)
 }
 
-func (x *pipLineServiceTransferFileServer) Recv() (*TransferFileArgs, error) {
-	m := new(TransferFileArgs)
+func (x *pipLineServiceTransferFileServer) Recv() (*PieceOfChunk, error) {
+	m := new(PieceOfChunk)
 	if err := x.ServerStream.RecvMsg(m); err != nil {
 		return nil, err
 	}
