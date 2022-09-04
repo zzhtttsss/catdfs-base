@@ -20,9 +20,8 @@ const (
 
 // Network const value
 const (
-	TCP              = "tcp"
-	LocalIP          = "127.0.0.1"
-	AddressDelimiter = ":"
+	TCP     = "tcp"
+	LocalIP = "127.0.0.1"
 )
 
 // Datanode status
@@ -60,7 +59,8 @@ const (
 	ChunkServerHeartbeatFailed = 4003
 )
 
-// chunkserver const
+// delimiter
 const (
-	MasterConnectKey = "master"
+	AddressDelimiter = ":"
+	ChunkIdDelimiter = "_"
 )
