@@ -36,6 +36,8 @@ const (
 	Connect2ClientFailed      = 1001
 	Connect2MasterFailed      = 1002
 	Connect2ChunkServerFailed = 1003
+	JsonMarshalFailed         = 1099
+	JsonUnmarshalFailed       = 1100
 )
 
 // client error code
