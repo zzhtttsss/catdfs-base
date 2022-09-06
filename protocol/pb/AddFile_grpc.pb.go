@@ -152,7 +152,10 @@ var MasterAddService_ServiceDesc = grpc.ServiceDesc{
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type PipLineServiceClient interface {
-	TransferFile(ctx context.Context, opts ...grpc.CallOption) (PipLineService_TransferFileClient, error)
+	// TransferFile Called by client or chunkserver.
+	// Transfer a chunk of the file to a chunkserver using stream and let that chunkserver transfer
+	// this chunk to another chunkserver if needed.
+	TransferChunk(ctx context.Context, opts ...grpc.CallOption) (PipLineService_TransferChunkClient, error)
 }
 
 type pipLineServiceClient struct {
@@ -163,34 +166,34 @@ func NewPipLineServiceClient(cc grpc.ClientConnInterface) PipLineServiceClient {
 	return &pipLineServiceClient{cc}
 }
 
-func (c *pipLineServiceClient) TransferFile(ctx context.Context, opts ...grpc.CallOption) (PipLineService_TransferFileClient, error) {
-	stream, err := c.cc.NewStream(ctx, &PipLineService_ServiceDesc.Streams[0], "/pb.PipLineService/TransferFile", opts...)
+func (c *pipLineServiceClient) TransferChunk(ctx context.Context, opts ...grpc.CallOption) (PipLineService_TransferChunkClient, error) {
+	stream, err := c.cc.NewStream(ctx, &PipLineService_ServiceDesc.Streams[0], "/pb.PipLineService/TransferChunk", opts...)
 	if err != nil {
 		return nil, err
 	}
-	x := &pipLineServiceTransferFileClient{stream}
+	x := &pipLineServiceTransferChunkClient{stream}
 	return x, nil
 }
 
-type PipLineService_TransferFileClient interface {
+type PipLineService_TransferChunkClient interface {
 	Send(*PieceOfChunk) error
-	CloseAndRecv() (*TransferFileReply, error)
+	CloseAndRecv() (*TransferChunkReply, error)
 	grpc.ClientStream
 }
 
-type pipLineServiceTransferFileClient struct {
+type pipLineServiceTransferChunkClient struct {
 	grpc.ClientStream
 }
 
-func (x *pipLineServiceTransferFileClient) Send(m *PieceOfChunk) error {
+func (x *pipLineServiceTransferChunkClient) Send(m *PieceOfChunk) error {
 	return x.ClientStream.SendMsg(m)
 }
 
-func (x *pipLineServiceTransferFileClient) CloseAndRecv() (*TransferFileReply, error) {
+func (x *pipLineServiceTransferChunkClient) CloseAndRecv() (*TransferChunkReply, error) {
 	if err := x.ClientStream.CloseSend(); err != nil {
 		return nil, err
 	}
-	m := new(TransferFileReply)
+	m := new(TransferChunkReply)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
 	}
@@ -201,7 +204,10 @@ func (x *pipLineServiceTransferFileClient) CloseAndRecv() (*TransferFileReply, e
 // All implementations must embed UnimplementedPipLineServiceServer
 // for forward compatibility
 type PipLineServiceServer interface {
-	TransferFile(PipLineService_TransferFileServer) error
+	// TransferFile Called by client or chunkserver.
+	// Transfer a chunk of the file to a chunkserver using stream and let that chunkserver transfer
+	// this chunk to another chunkserver if needed.
+	TransferChunk(PipLineService_TransferChunkServer) error
 	mustEmbedUnimplementedPipLineServiceServer()
 }
 
@@ -209,8 +215,8 @@ type PipLineServiceServer interface {
 type UnimplementedPipLineServiceServer struct {
 }
 
-func (UnimplementedPipLineServiceServer) TransferFile(PipLineService_TransferFileServer) error {
-	return status.Errorf(codes.Unimplemented, "method TransferFile not implemented")
+func (UnimplementedPipLineServiceServer) TransferChunk(PipLineService_TransferChunkServer) error {
+	return status.Errorf(codes.Unimplemented, "method TransferChunk not implemented")
 }
 func (UnimplementedPipLineServiceServer) mustEmbedUnimplementedPipLineServiceServer() {}
 
@@ -225,25 +231,25 @@ func RegisterPipLineServiceServer(s grpc.ServiceRegistrar, srv PipLineServiceSer
 	s.RegisterService(&PipLineService_ServiceDesc, srv)
 }
 
-func _PipLineService_TransferFile_Handler(srv interface{}, stream grpc.ServerStream) error {
-	return srv.(PipLineServiceServer).TransferFile(&pipLineServiceTransferFileServer{stream})
+func _PipLineService_TransferChunk_Handler(srv interface{}, stream grpc.ServerStream) error {
+	return srv.(PipLineServiceServer).TransferChunk(&pipLineServiceTransferChunkServer{stream})
 }
 
-type PipLineService_TransferFileServer interface {
-	SendAndClose(*TransferFileReply) error
+type PipLineService_TransferChunkServer interface {
+	SendAndClose(*TransferChunkReply) error
 	Recv() (*PieceOfChunk, error)
 	grpc.ServerStream
 }
 
-type pipLineServiceTransferFileServer struct {
+type pipLineServiceTransferChunkServer struct {
 	grpc.ServerStream
 }
 
-func (x *pipLineServiceTransferFileServer) SendAndClose(m *TransferFileReply) error {
+func (x *pipLineServiceTransferChunkServer) SendAndClose(m *TransferChunkReply) error {
 	return x.ServerStream.SendMsg(m)
 }
 
-func (x *pipLineServiceTransferFileServer) Recv() (*PieceOfChunk, error) {
+func (x *pipLineServiceTransferChunkServer) Recv() (*PieceOfChunk, error) {
 	m := new(PieceOfChunk)
 	if err := x.ServerStream.RecvMsg(m); err != nil {
 		return nil, err
@@ -260,8 +266,8 @@ var PipLineService_ServiceDesc = grpc.ServiceDesc{
 	Methods:     []grpc.MethodDesc{},
 	Streams: []grpc.StreamDesc{
 		{
-			StreamName:    "TransferFile",
-			Handler:       _PipLineService_TransferFile_Handler,
+			StreamName:    "TransferChunk",
+			Handler:       _PipLineService_TransferChunk_Handler,
 			ClientStreams: true,
 		},
 	},
