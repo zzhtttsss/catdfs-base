@@ -1,0 +1,18 @@
+syntax="proto3";
+package pb;
+option go_package="/pb";
+
+message OperationArgs {
+  string type=1;
+  string src=2;
+  string des=3;
+  bool isFile=4;
+}
+
+message OperationReply {
+  bool ok=1;
+}
+
+service SendOperationService {
+  rpc SendOperation(OperationArgs) returns(OperationReply);
+}
