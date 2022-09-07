@@ -47,20 +47,20 @@ service MasterAddService {
   rpc GetDataNodes4Add(GetDataNodes4AddArgs) returns(GetDataNodes4AddReply);
 }
 
-// TransferFileArgs
-// fileNodeId: file id stored in the directory tree
-// chunkIndex: the index of chunk
+// TransferChunkArgs
+// piece: a chunk will be split into pieces to send using stream
 message PieceOfChunk {
   bytes piece = 1;
 }
 
-// TransferFileReply
-// dataNodes: ids of all DataNodes that will store this chunk
-// primaryNode: id of the primary DataNode
-message TransferFileReply {
+// TransferChunkReply
+message TransferChunkReply {
 
 }
 
 service PipLineService {
-  rpc TransferFile(stream PieceOfChunk) returns(TransferFileReply);
+  // TransferFile Called by client or chunkserver.
+  // Transfer a chunk of the file to a chunkserver using stream and let that chunkserver transfer
+  // this chunk to another chunkserver if needed.
+  rpc TransferChunk(stream PieceOfChunk) returns(TransferChunkReply);
 }
