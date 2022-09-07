@@ -47,11 +47,12 @@ const (
 
 // master error code
 const (
-	MasterRPCServerFailed        = 3001
-	MasterRegisterFailed         = 3002
-	MasterHeartbeatFailed        = 3003
-	MasterCheckArgs4AddFailed    = 3004
-	MasterGetDataNodes4AddFailed = 3005
+	MasterRPCServerFailed           = 3001
+	MasterRegisterFailed            = 3002
+	MasterHeartbeatFailed           = 3003
+	MasterCheckArgs4AddFailed       = 3004
+	MasterGetDataNodes4AddFailed    = 3005
+	ShadowMasterSendOperationFailed = 3050
 )
 
 // chunkserver error code
