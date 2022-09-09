@@ -3,10 +3,14 @@ package pb;
 option go_package="/pb";
 
 message OperationArgs {
-  string type=1;
-  string src=2;
-  string des=3;
-  bool isFile=4;
+  string uuid=1;      // Identifier
+  string type=2;      // Specify the Operation Type
+  string src=3;       // Client `src` Parameter
+  string des=4;       // Client `des` Parameter
+  bool isFile=5;      // Available if Type is Add
+  string fileName=6;  // Available if Type is Add and IsFile is True
+  int64 size=7;       // Available if Type is Add
+  bool isFinish=8;    // True when client notify the master
 }
 
 message OperationReply {
