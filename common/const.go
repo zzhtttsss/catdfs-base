@@ -8,9 +8,12 @@ const (
 	ChunkPort  = "chunk.port"
 
 	// master config
-	ChunkWaitTime = "chunk.waitTime"
-	ChunkDieTime  = "chunk.dieTime"
-	ReplicaNum    = "replicaNum"
+	ChunkWaitTime      = "chunk.waitTime"
+	ChunkDieTime       = "chunk.dieTime"
+	ReplicaNum         = "replicaNum"
+	SMAddr             = "shadowMaster.addr"
+	SMPort             = "shadowMaster.port"
+	SMFsimageFlushTime = "shadowMaster.fsimageFlushTime"
 
 	// chunk server config
 	ChunkHeartbeatReconnectCount = "chunk.heartbeat.reconnectCount"
