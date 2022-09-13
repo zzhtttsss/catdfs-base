@@ -10,7 +10,7 @@ const (
 	// master config
 	ChunkWaitTime      = "chunk.waitTime"
 	ChunkDieTime       = "chunk.dieTime"
-	ReplicaNum         = "replicaNum"
+	ReplicaNum         = "master.replicaNum"
 	SMAddr             = "shadowMaster.addr"
 	SMPort             = "shadowMaster.port"
 	SMFsimageFlushTime = "shadowMaster.fsimageFlushTime"
