@@ -80,7 +80,8 @@ const (
 
 // const number
 const (
-	KB = 1024
-	MB = 1024 * KB
-	GB = 1024 * MB
+	KB        = 1024
+	MB        = 1024 * KB
+	GB        = 1024 * MB
+	ChunkSize = 64 * MB
 )
