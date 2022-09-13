@@ -72,7 +72,7 @@ const (
 	ChunkIdDelimiter = "_"
 )
 
-// key
+// map key
 const (
 	ChunkIdString = "chunkId"
 	AddressString = "address"
