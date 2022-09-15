@@ -45,6 +45,14 @@ message UnlockDic4AddReply {
 
 }
 
+message ReleaseLease4AddArgs {
+  string chunkId = 1;
+}
+
+message ReleaseLease4AddReply {
+
+}
+
 service MasterAddService {
   // CheckArgs4Add Called by client.
   // Check whether the path and file name entered by the user in the Add operation are legal.
@@ -57,6 +65,10 @@ service MasterAddService {
   // UnlockDic4Add Called by client.
   // Unlock all FileNodes in the target path which is used to add file.
   rpc UnlockDic4Add(UnlockDic4AddArgs) returns(UnlockDic4AddReply);
+
+  // ReleaseLease4Add Called by client.
+  // Release the lease of a chunk.
+  rpc ReleaseLease4Add(ReleaseLease4AddArgs) returns(ReleaseLease4AddReply);
 }
 
 // TransferChunkArgs

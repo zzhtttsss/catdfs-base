@@ -31,6 +31,9 @@ type MasterAddServiceClient interface {
 	// UnlockDic4Add Called by client.
 	// Unlock all FileNodes in the target path which is used to add file.
 	UnlockDic4Add(ctx context.Context, in *UnlockDic4AddArgs, opts ...grpc.CallOption) (*UnlockDic4AddReply, error)
+	// ReleaseLease4Add Called by client.
+	// Release the lease of a chunk.
+	ReleaseLease4Add(ctx context.Context, in *ReleaseLease4AddArgs, opts ...grpc.CallOption) (*ReleaseLease4AddReply, error)
 }
 
 type masterAddServiceClient struct {
@@ -68,6 +71,15 @@ func (c *masterAddServiceClient) UnlockDic4Add(ctx context.Context, in *UnlockDi
 	return out, nil
 }
 
+func (c *masterAddServiceClient) ReleaseLease4Add(ctx context.Context, in *ReleaseLease4AddArgs, opts ...grpc.CallOption) (*ReleaseLease4AddReply, error) {
+	out := new(ReleaseLease4AddReply)
+	err := c.cc.Invoke(ctx, "/pb.MasterAddService/ReleaseLease4Add", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // MasterAddServiceServer is the server API for MasterAddService service.
 // All implementations must embed UnimplementedMasterAddServiceServer
 // for forward compatibility
@@ -81,6 +93,9 @@ type MasterAddServiceServer interface {
 	// UnlockDic4Add Called by client.
 	// Unlock all FileNodes in the target path which is used to add file.
 	UnlockDic4Add(context.Context, *UnlockDic4AddArgs) (*UnlockDic4AddReply, error)
+	// ReleaseLease4Add Called by client.
+	// Release the lease of a chunk.
+	ReleaseLease4Add(context.Context, *ReleaseLease4AddArgs) (*ReleaseLease4AddReply, error)
 	mustEmbedUnimplementedMasterAddServiceServer()
 }
 
@@ -96,6 +111,9 @@ func (UnimplementedMasterAddServiceServer) GetDataNodes4Add(context.Context, *Ge
 }
 func (UnimplementedMasterAddServiceServer) UnlockDic4Add(context.Context, *UnlockDic4AddArgs) (*UnlockDic4AddReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UnlockDic4Add not implemented")
+}
+func (UnimplementedMasterAddServiceServer) ReleaseLease4Add(context.Context, *ReleaseLease4AddArgs) (*ReleaseLease4AddReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ReleaseLease4Add not implemented")
 }
 func (UnimplementedMasterAddServiceServer) mustEmbedUnimplementedMasterAddServiceServer() {}
 
@@ -164,6 +182,24 @@ func _MasterAddService_UnlockDic4Add_Handler(srv interface{}, ctx context.Contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _MasterAddService_ReleaseLease4Add_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ReleaseLease4AddArgs)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MasterAddServiceServer).ReleaseLease4Add(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/pb.MasterAddService/ReleaseLease4Add",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MasterAddServiceServer).ReleaseLease4Add(ctx, req.(*ReleaseLease4AddArgs))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // MasterAddService_ServiceDesc is the grpc.ServiceDesc for MasterAddService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -182,6 +218,10 @@ var MasterAddService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UnlockDic4Add",
 			Handler:    _MasterAddService_UnlockDic4Add_Handler,
+		},
+		{
+			MethodName: "ReleaseLease4Add",
+			Handler:    _MasterAddService_ReleaseLease4Add_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
