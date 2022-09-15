@@ -55,6 +55,7 @@ const (
 	MasterHeartbeatFailed           = 3003
 	MasterCheckArgs4AddFailed       = 3004
 	MasterGetDataNodes4AddFailed    = 3005
+	MasterUnlockDic4AddFailed       = 3006
 	ShadowMasterSendOperationFailed = 3050
 )
 
