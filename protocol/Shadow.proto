@@ -19,4 +19,5 @@ message OperationReply {
 
 service SendOperationService {
   rpc SendOperation(OperationArgs) returns(OperationReply);
+  rpc FinishOperation(OperationArgs) returns(OperationReply);
 }
