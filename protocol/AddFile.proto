@@ -15,9 +15,11 @@ message CheckArgs4AddArgs {
 // CheckArgs4AddReply
 // fileNodeId: file id stored in the directory tree
 // chunkNum: the number of chunks the file will be cut into
+// uuid: the add operation id stored in the edits
 message CheckArgs4AddReply {
   string fileNodeId = 1;
   int32 chunkNum = 2;
+  string uuid = 3;
 }
 
 // GetDataNodes4AddArgs
@@ -39,6 +41,7 @@ message GetDataNodes4AddReply {
 
 message UnlockDic4AddArgs {
   string fileNodeId = 1;
+  string operationUuid = 2;
 }
 
 message UnlockDic4AddReply {
