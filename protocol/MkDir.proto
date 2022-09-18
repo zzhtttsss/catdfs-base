@@ -1,0 +1,21 @@
+syntax="proto3";
+package pb;
+option go_package="/pb";
+
+// CheckAndMkDirArgs
+// path: target path to make directory
+// dirName: name of the directory to be added
+message CheckAndMkDirArgs {
+  string path = 1;
+  string dirName = 2;
+}
+
+message CheckAndMkDirReply {
+
+}
+
+service MasterMkdirService {
+  // CheckAndMkdir Called by client.
+  // Check args and make directory at target path.
+  rpc CheckAndMkdir(CheckAndMkDirArgs) returns(CheckAndMkDirReply);
+}

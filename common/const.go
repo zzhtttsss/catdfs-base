@@ -59,6 +59,7 @@ const (
 	MasterReleaseLease4AddFailed      = 3007
 	MasterSendOperationFailed         = 3008
 	MasterFinishOperationFailed       = 3009
+	MasterCheckAndMkdirFailed         = 3010
 	ShadowMasterSendOperationFailed   = 3050
 	ShadowMasterFinishOperationFailed = 3051
 )
@@ -90,4 +91,5 @@ const (
 	GB         = 1024 * MB
 	ChunkMBNum = 64
 	ChunkSize  = ChunkMBNum * MB
+	DirSize    = 0
 )

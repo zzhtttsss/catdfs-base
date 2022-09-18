@@ -4,7 +4,7 @@ option go_package="/pb";
 
 // CheckArgs4AddArgs
 // path: target path to add file
-// fileName: name of the file to add
+// fileName: name of the file to be added
 // size: size of the file. Use bytes as the unit of measurement which means 1kb will be 1024.
 message CheckArgs4AddArgs {
   string path = 1;
@@ -39,6 +39,8 @@ message GetDataNodes4AddReply {
 
 }
 
+// UnlockDic4AddArgs
+// fileNodeId: id of FileNode which has been stored by chunkserver and need to be unlocked.
 message UnlockDic4AddArgs {
   string fileNodeId = 1;
   string operationUuid = 2;
@@ -48,6 +50,8 @@ message UnlockDic4AddReply {
 
 }
 
+// ReleaseLease4AddArgs
+// chunkId: id of chunk which has been stored by chunkserver and need to release its lease
 message ReleaseLease4AddArgs {
   string chunkId = 1;
 }
