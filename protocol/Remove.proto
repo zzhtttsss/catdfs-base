@@ -1,0 +1,19 @@
+syntax="proto3";
+package pb;
+option go_package="/pb";
+
+// CheckAndRemoveArgs
+// path: path of the directory or file need to be removed
+message CheckAndRemoveArgs {
+  string path = 1;
+}
+
+message CheckAndRemoveReply {
+
+}
+
+service MasterRemoveService {
+  // CheckAndMove Called by client.
+  // Check args and remove directory or file at target path.
+  rpc CheckAndMove(CheckAndRemoveArgs) returns(CheckAndRemoveReply);
+}
