@@ -15,5 +15,5 @@ message CheckAndRemoveReply {
 service MasterRemoveService {
   // CheckAndRemove Called by client.
   // Check args and remove directory or file at target path.
-  rpc CheckAndMove(CheckAndRemoveArgs) returns(CheckAndRemoveReply);
+  rpc CheckAndRemove(CheckAndRemoveArgs) returns(CheckAndRemoveReply);
 }

@@ -24,7 +24,7 @@ const _ = grpc.SupportPackageIsVersion7
 type MasterRemoveServiceClient interface {
 	// CheckAndRemove Called by client.
 	// Check args and remove directory or file at target path.
-	CheckAndMove(ctx context.Context, in *CheckAndRemoveArgs, opts ...grpc.CallOption) (*CheckAndRemoveReply, error)
+	CheckAndRemove(ctx context.Context, in *CheckAndRemoveArgs, opts ...grpc.CallOption) (*CheckAndRemoveReply, error)
 }
 
 type masterRemoveServiceClient struct {
@@ -35,9 +35,9 @@ func NewMasterRemoveServiceClient(cc grpc.ClientConnInterface) MasterRemoveServi
 	return &masterRemoveServiceClient{cc}
 }
 
-func (c *masterRemoveServiceClient) CheckAndMove(ctx context.Context, in *CheckAndRemoveArgs, opts ...grpc.CallOption) (*CheckAndRemoveReply, error) {
+func (c *masterRemoveServiceClient) CheckAndRemove(ctx context.Context, in *CheckAndRemoveArgs, opts ...grpc.CallOption) (*CheckAndRemoveReply, error) {
 	out := new(CheckAndRemoveReply)
-	err := c.cc.Invoke(ctx, "/pb.MasterRemoveService/CheckAndMove", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/pb.MasterRemoveService/CheckAndRemove", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -50,7 +50,7 @@ func (c *masterRemoveServiceClient) CheckAndMove(ctx context.Context, in *CheckA
 type MasterRemoveServiceServer interface {
 	// CheckAndRemove Called by client.
 	// Check args and remove directory or file at target path.
-	CheckAndMove(context.Context, *CheckAndRemoveArgs) (*CheckAndRemoveReply, error)
+	CheckAndRemove(context.Context, *CheckAndRemoveArgs) (*CheckAndRemoveReply, error)
 	mustEmbedUnimplementedMasterRemoveServiceServer()
 }
 
@@ -58,8 +58,8 @@ type MasterRemoveServiceServer interface {
 type UnimplementedMasterRemoveServiceServer struct {
 }
 
-func (UnimplementedMasterRemoveServiceServer) CheckAndMove(context.Context, *CheckAndRemoveArgs) (*CheckAndRemoveReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CheckAndMove not implemented")
+func (UnimplementedMasterRemoveServiceServer) CheckAndRemove(context.Context, *CheckAndRemoveArgs) (*CheckAndRemoveReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CheckAndRemove not implemented")
 }
 func (UnimplementedMasterRemoveServiceServer) mustEmbedUnimplementedMasterRemoveServiceServer() {}
 
@@ -74,20 +74,20 @@ func RegisterMasterRemoveServiceServer(s grpc.ServiceRegistrar, srv MasterRemove
 	s.RegisterService(&MasterRemoveService_ServiceDesc, srv)
 }
 
-func _MasterRemoveService_CheckAndMove_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _MasterRemoveService_CheckAndRemove_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CheckAndRemoveArgs)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(MasterRemoveServiceServer).CheckAndMove(ctx, in)
+		return srv.(MasterRemoveServiceServer).CheckAndRemove(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/pb.MasterRemoveService/CheckAndMove",
+		FullMethod: "/pb.MasterRemoveService/CheckAndRemove",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MasterRemoveServiceServer).CheckAndMove(ctx, req.(*CheckAndRemoveArgs))
+		return srv.(MasterRemoveServiceServer).CheckAndRemove(ctx, req.(*CheckAndRemoveArgs))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -100,8 +100,8 @@ var MasterRemoveService_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*MasterRemoveServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "CheckAndMove",
-			Handler:    _MasterRemoveService_CheckAndMove_Handler,
+			MethodName: "CheckAndRemove",
+			Handler:    _MasterRemoveService_CheckAndRemove_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
