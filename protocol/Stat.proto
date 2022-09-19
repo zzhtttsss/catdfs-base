@@ -10,7 +10,8 @@ message CheckAndStatArgs {
 
 message CheckAndStatReply {
   string fileName=1;
-  int64 size=2;
+  bool isFile=2;
+  int64 size=3;
 }
 
 service MasterStatService {
