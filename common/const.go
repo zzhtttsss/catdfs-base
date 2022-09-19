@@ -60,6 +60,8 @@ const (
 	MasterSendOperationFailed         = 3008
 	MasterFinishOperationFailed       = 3009
 	MasterCheckAndMkdirFailed         = 3010
+	MasterCheckAndMoveFailed          = 3011
+	MasterCheckAndRemoveFailed        = 3012
 	ShadowMasterSendOperationFailed   = 3050
 	ShadowMasterFinishOperationFailed = 3051
 )
