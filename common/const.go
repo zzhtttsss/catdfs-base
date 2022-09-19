@@ -34,6 +34,14 @@ const (
 	Waiting = 2
 )
 
+// Persistence String
+const (
+	LogFileName       = "log/edits.txt"
+	DirectoryFileName = "log/fsimage.txt"
+	NormalTimeFormat  = "2006-01-02 15:04:05"
+	LogFileTimeFormat = "2006-01-02.15.04.05"
+)
+
 // common error code
 const (
 	Connect2ClientFailed      = 1001
@@ -62,6 +70,7 @@ const (
 	MasterCheckAndMkdirFailed         = 3010
 	MasterCheckAndMoveFailed          = 3011
 	MasterCheckAndRemoveFailed        = 3012
+	ShadowMasterRPCServerFailed       = 3049
 	ShadowMasterSendOperationFailed   = 3050
 	ShadowMasterFinishOperationFailed = 3051
 )
@@ -78,6 +87,7 @@ const (
 const (
 	AddressDelimiter = ":"
 	ChunkIdDelimiter = "_"
+	MinusOneString   = "-1"
 )
 
 // map key
