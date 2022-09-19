@@ -22,7 +22,7 @@ const _ = grpc.SupportPackageIsVersion7
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type MasterRemoveServiceClient interface {
-	// CheckAndMove Called by client.
+	// CheckAndRemove Called by client.
 	// Check args and remove directory or file at target path.
 	CheckAndMove(ctx context.Context, in *CheckAndRemoveArgs, opts ...grpc.CallOption) (*CheckAndRemoveReply, error)
 }
@@ -48,7 +48,7 @@ func (c *masterRemoveServiceClient) CheckAndMove(ctx context.Context, in *CheckA
 // All implementations must embed UnimplementedMasterRemoveServiceServer
 // for forward compatibility
 type MasterRemoveServiceServer interface {
-	// CheckAndMove Called by client.
+	// CheckAndRemove Called by client.
 	// Check args and remove directory or file at target path.
 	CheckAndMove(context.Context, *CheckAndRemoveArgs) (*CheckAndRemoveReply, error)
 	mustEmbedUnimplementedMasterRemoveServiceServer()
