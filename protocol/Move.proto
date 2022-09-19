@@ -1,0 +1,21 @@
+syntax="proto3";
+package pb;
+option go_package="/pb";
+
+// CheckAndMoveArgs
+// sourcePath: path of the directory or file need to be moved
+// targetPath: path where directory or file will be moved to
+message CheckAndMoveArgs {
+  string sourcePath = 1;
+  string targetPath = 2;
+}
+
+message CheckAndMoveReply {
+
+}
+
+service MasterMoveService {
+  // CheckAndMove Called by client.
+  // Check args and move directory or file to target path.
+  rpc CheckAndMove(CheckAndMoveArgs) returns(CheckAndMoveReply);
+}
