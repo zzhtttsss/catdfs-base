@@ -1,0 +1,20 @@
+syntax="proto3";
+package pb;
+option go_package="/pb";
+
+// CheckAndStatArgs
+// path: file path
+message CheckAndStatArgs {
+  string path = 1;
+}
+
+message CheckAndStatReply {
+  string fileName=1;
+  int64 size=2;
+}
+
+service MasterStatService {
+  // CheckAndStat Called by client.
+  // Check args and get the file info.
+  rpc CheckAndStat(CheckAndStatArgs) returns(CheckAndStatReply);
+}
