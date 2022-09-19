@@ -1,0 +1,19 @@
+syntax="proto3";
+package pb;
+option go_package="/pb";
+
+// CheckAndListArgs
+// path: path of the directory need to be listed
+message CheckAndListArgs {
+  string path = 1;
+}
+
+message CheckAndListReply {
+
+}
+
+service MasterListService {
+  // CheckAndList Called by client.
+  // Check args and list all directories or files under target path.
+  rpc CheckAndList(CheckAndListArgs) returns(CheckAndListReply);
+}
