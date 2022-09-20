@@ -70,6 +70,10 @@ const (
 	MasterCheckAndMkdirFailed         = 3010
 	MasterCheckAndMoveFailed          = 3011
 	MasterCheckAndRemoveFailed        = 3012
+	MasterCheckAndListFailed          = 3013
+	MasterCheckAndStatFailed          = 3014
+	MasterCheckAndRenameFailed        = 3015
+	MasterCheckAndGetFailed           = 3016
 	ShadowMasterRPCServerFailed       = 3049
 	ShadowMasterSendOperationFailed   = 3050
 	ShadowMasterFinishOperationFailed = 3051
