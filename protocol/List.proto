@@ -2,6 +2,11 @@ syntax="proto3";
 package pb;
 option go_package="/pb";
 
+message FileInfo {
+  string fileName=1;
+  bool isFile=2;
+}
+
 // CheckAndListArgs
 // path: path of the directory need to be listed
 message CheckAndListArgs {
@@ -9,7 +14,7 @@ message CheckAndListArgs {
 }
 
 message CheckAndListReply {
-
+  repeated FileInfo files=1;
 }
 
 service MasterListService {
