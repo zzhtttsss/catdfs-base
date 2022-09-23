@@ -1,0 +1,77 @@
+syntax="proto3";
+package pb;
+option go_package="/pb";
+
+// CheckAndGetArgs
+// path: target path to get
+message CheckAndGetArgs {
+  string path = 1;
+}
+
+// CheckAndGetReply
+// fileNodeId: file id stored in the directory tree
+// chunkNum: the number of chunks the file will be cut into
+// operationId: the get operation id stored in the edits
+message CheckAndGetReply {
+  string fileNodeId = 1;
+  int32 chunkNum = 2;
+  string operationId = 3;
+}
+
+// GetDataNodes4GetArgs
+// fileNodeId: file id stored in the directory tree
+// chunkIndex: the index of chunk
+message GetDataNodes4GetArgs {
+  string fileNodeId = 1;
+  int32 chunkIndex = 2;
+}
+
+// GetDataNodes4GetReply
+// primaryNodeId: id of the primary DataNode
+// primaryNodeAddr: address of the primary DataNode
+// chunkIndex: index of current chunk index of the file
+message GetDataNodes4GetReply {
+  repeated string dataNodeIds = 1;
+  repeated string dataNodeAddrs = 2;
+  int32 chunkIndex = 3;
+
+}
+
+// SetLease4GetArgs
+// chunkId: id of chunk which has been stored by dataNode
+// dataNodeId: id of dataNode
+message SetLease4GetArgs {
+  string chunkId = 1;
+  string dataNodeId = 2;
+}
+
+message SetLease4GetReply {
+
+}
+
+// ReleaseLease4GetArgs
+// chunkId: id of chunk which has been stored by chunkserver and need to release its lease
+message ReleaseLease4GetArgs {
+  string chunkId = 1;
+}
+
+message ReleaseLease4GetReply {
+
+}
+
+service MasterGetService {
+  // CheckAndGet Called by client.
+  // Check whether the path and file name entered by the user in the Add operation are legal.
+  rpc CheckAndGet(CheckAndGetArgs) returns(CheckAndGetReply);
+
+  // GetDataNodes4Get Called by client.
+  // Allocate some DataNode to store a Chunk and select the primary DataNode
+  rpc GetDataNodes4Get(GetDataNodes4GetArgs) returns(GetDataNodes4GetReply);
+  // SetLease4Get Called by client.
+  // Set the lease for specified chunk in specified dataNode
+  rpc SetLease4Get(SetLease4GetArgs) returns(SetLease4GetReply);
+
+  // ReleaseLease4Add Called by client.
+  // Release the lease of a chunk.
+  rpc ReleaseLease4Get(ReleaseLease4GetArgs) returns(ReleaseLease4GetReply);
+}
