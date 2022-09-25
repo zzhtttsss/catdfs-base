@@ -6,6 +6,7 @@ const (
 	MasterAddr = "master.addr"
 	MasterPort = "master.port"
 	ChunkPort  = "chunk.port"
+	ClientPort = "client.port"
 
 	// master config
 	ChunkWaitTime      = "chunk.waitTime"

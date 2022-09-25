@@ -37,15 +37,17 @@ message GetDataNodes4GetReply {
 
 }
 
-// SetLease4GetArgs
-// chunkId: id of chunk which has been stored by dataNode
+// SetupStream2DataNodeArgs sets up the stream with the datanode and then transfer data
+// clientAddr: address of the client
+// chunkId: fileNodeId+chunkIndex which represents a chunk
 // dataNodeId: id of dataNode
-message SetLease4GetArgs {
-  string chunkId = 1;
-  string dataNodeId = 2;
+message SetupStream2DataNodeArgs {
+  string clientPort = 1;
+  string chunkId = 2;
+  string dataNodeId = 3;
 }
 
-message SetLease4GetReply {
+message SetupStream2DataNodeReply {
 
 }
 
@@ -67,9 +69,9 @@ service MasterGetService {
   // GetDataNodes4Get Called by client.
   // Allocate some DataNode to store a Chunk and select the primary DataNode
   rpc GetDataNodes4Get(GetDataNodes4GetArgs) returns(GetDataNodes4GetReply);
-  // SetLease4Get Called by client.
-  // Set the lease for specified chunk in specified dataNode
-  rpc SetLease4Get(SetLease4GetArgs) returns(SetLease4GetReply);
+  // SetupStream2DataNode Called by client.
+  // Set up the stream between client and chunkserver, then chunkserver call rpc send data
+  rpc SetupStream2DataNode(SetupStream2DataNodeArgs) returns(SetupStream2DataNodeReply);
 
   // ReleaseLease4Add Called by client.
   // Release the lease of a chunk.

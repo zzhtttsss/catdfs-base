@@ -28,9 +28,9 @@ type MasterGetServiceClient interface {
 	// GetDataNodes4Get Called by client.
 	// Allocate some DataNode to store a Chunk and select the primary DataNode
 	GetDataNodes4Get(ctx context.Context, in *GetDataNodes4GetArgs, opts ...grpc.CallOption) (*GetDataNodes4GetReply, error)
-	// SetLease4Get Called by client.
-	// Set the lease for specified chunk in specified dataNode
-	SetLease4Get(ctx context.Context, in *SetLease4GetArgs, opts ...grpc.CallOption) (*SetLease4GetReply, error)
+	// SetupStream2DataNode Called by client.
+	// Set up the stream between client and chunkserver, then chunkserver call rpc send data
+	SetupStream2DataNode(ctx context.Context, in *SetupStream2DataNodeArgs, opts ...grpc.CallOption) (*SetupStream2DataNodeReply, error)
 	// ReleaseLease4Add Called by client.
 	// Release the lease of a chunk.
 	ReleaseLease4Get(ctx context.Context, in *ReleaseLease4GetArgs, opts ...grpc.CallOption) (*ReleaseLease4GetReply, error)
@@ -62,9 +62,9 @@ func (c *masterGetServiceClient) GetDataNodes4Get(ctx context.Context, in *GetDa
 	return out, nil
 }
 
-func (c *masterGetServiceClient) SetLease4Get(ctx context.Context, in *SetLease4GetArgs, opts ...grpc.CallOption) (*SetLease4GetReply, error) {
-	out := new(SetLease4GetReply)
-	err := c.cc.Invoke(ctx, "/pb.MasterGetService/SetLease4Get", in, out, opts...)
+func (c *masterGetServiceClient) SetupStream2DataNode(ctx context.Context, in *SetupStream2DataNodeArgs, opts ...grpc.CallOption) (*SetupStream2DataNodeReply, error) {
+	out := new(SetupStream2DataNodeReply)
+	err := c.cc.Invoke(ctx, "/pb.MasterGetService/SetupStream2DataNode", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -90,9 +90,9 @@ type MasterGetServiceServer interface {
 	// GetDataNodes4Get Called by client.
 	// Allocate some DataNode to store a Chunk and select the primary DataNode
 	GetDataNodes4Get(context.Context, *GetDataNodes4GetArgs) (*GetDataNodes4GetReply, error)
-	// SetLease4Get Called by client.
-	// Set the lease for specified chunk in specified dataNode
-	SetLease4Get(context.Context, *SetLease4GetArgs) (*SetLease4GetReply, error)
+	// SetupStream2DataNode Called by client.
+	// Set up the stream between client and chunkserver, then chunkserver call rpc send data
+	SetupStream2DataNode(context.Context, *SetupStream2DataNodeArgs) (*SetupStream2DataNodeReply, error)
 	// ReleaseLease4Add Called by client.
 	// Release the lease of a chunk.
 	ReleaseLease4Get(context.Context, *ReleaseLease4GetArgs) (*ReleaseLease4GetReply, error)
@@ -109,8 +109,8 @@ func (UnimplementedMasterGetServiceServer) CheckAndGet(context.Context, *CheckAn
 func (UnimplementedMasterGetServiceServer) GetDataNodes4Get(context.Context, *GetDataNodes4GetArgs) (*GetDataNodes4GetReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetDataNodes4Get not implemented")
 }
-func (UnimplementedMasterGetServiceServer) SetLease4Get(context.Context, *SetLease4GetArgs) (*SetLease4GetReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method SetLease4Get not implemented")
+func (UnimplementedMasterGetServiceServer) SetupStream2DataNode(context.Context, *SetupStream2DataNodeArgs) (*SetupStream2DataNodeReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SetupStream2DataNode not implemented")
 }
 func (UnimplementedMasterGetServiceServer) ReleaseLease4Get(context.Context, *ReleaseLease4GetArgs) (*ReleaseLease4GetReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ReleaseLease4Get not implemented")
@@ -164,20 +164,20 @@ func _MasterGetService_GetDataNodes4Get_Handler(srv interface{}, ctx context.Con
 	return interceptor(ctx, in, info, handler)
 }
 
-func _MasterGetService_SetLease4Get_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(SetLease4GetArgs)
+func _MasterGetService_SetupStream2DataNode_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SetupStream2DataNodeArgs)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(MasterGetServiceServer).SetLease4Get(ctx, in)
+		return srv.(MasterGetServiceServer).SetupStream2DataNode(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/pb.MasterGetService/SetLease4Get",
+		FullMethod: "/pb.MasterGetService/SetupStream2DataNode",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MasterGetServiceServer).SetLease4Get(ctx, req.(*SetLease4GetArgs))
+		return srv.(MasterGetServiceServer).SetupStream2DataNode(ctx, req.(*SetupStream2DataNodeArgs))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -216,8 +216,8 @@ var MasterGetService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _MasterGetService_GetDataNodes4Get_Handler,
 		},
 		{
-			MethodName: "SetLease4Get",
-			Handler:    _MasterGetService_SetLease4Get_Handler,
+			MethodName: "SetupStream2DataNode",
+			Handler:    _MasterGetService_SetupStream2DataNode_Handler,
 		},
 		{
 			MethodName: "ReleaseLease4Get",
