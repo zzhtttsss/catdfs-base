@@ -28,9 +28,6 @@ type MasterGetServiceClient interface {
 	// GetDataNodes4Get Called by client.
 	// Allocate some DataNode to store a Chunk and select the primary DataNode
 	GetDataNodes4Get(ctx context.Context, in *GetDataNodes4GetArgs, opts ...grpc.CallOption) (*GetDataNodes4GetReply, error)
-	// SetupStream2DataNode Called by client.
-	// Set up the stream between client and chunkserver, then chunkserver call rpc send data
-	SetupStream2DataNode(ctx context.Context, in *SetupStream2DataNodeArgs, opts ...grpc.CallOption) (*SetupStream2DataNodeReply, error)
 	// ReleaseLease4Add Called by client.
 	// Release the lease of a chunk.
 	ReleaseLease4Get(ctx context.Context, in *ReleaseLease4GetArgs, opts ...grpc.CallOption) (*ReleaseLease4GetReply, error)
@@ -62,15 +59,6 @@ func (c *masterGetServiceClient) GetDataNodes4Get(ctx context.Context, in *GetDa
 	return out, nil
 }
 
-func (c *masterGetServiceClient) SetupStream2DataNode(ctx context.Context, in *SetupStream2DataNodeArgs, opts ...grpc.CallOption) (*SetupStream2DataNodeReply, error) {
-	out := new(SetupStream2DataNodeReply)
-	err := c.cc.Invoke(ctx, "/pb.MasterGetService/SetupStream2DataNode", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 func (c *masterGetServiceClient) ReleaseLease4Get(ctx context.Context, in *ReleaseLease4GetArgs, opts ...grpc.CallOption) (*ReleaseLease4GetReply, error) {
 	out := new(ReleaseLease4GetReply)
 	err := c.cc.Invoke(ctx, "/pb.MasterGetService/ReleaseLease4Get", in, out, opts...)
@@ -90,9 +78,6 @@ type MasterGetServiceServer interface {
 	// GetDataNodes4Get Called by client.
 	// Allocate some DataNode to store a Chunk and select the primary DataNode
 	GetDataNodes4Get(context.Context, *GetDataNodes4GetArgs) (*GetDataNodes4GetReply, error)
-	// SetupStream2DataNode Called by client.
-	// Set up the stream between client and chunkserver, then chunkserver call rpc send data
-	SetupStream2DataNode(context.Context, *SetupStream2DataNodeArgs) (*SetupStream2DataNodeReply, error)
 	// ReleaseLease4Add Called by client.
 	// Release the lease of a chunk.
 	ReleaseLease4Get(context.Context, *ReleaseLease4GetArgs) (*ReleaseLease4GetReply, error)
@@ -108,9 +93,6 @@ func (UnimplementedMasterGetServiceServer) CheckAndGet(context.Context, *CheckAn
 }
 func (UnimplementedMasterGetServiceServer) GetDataNodes4Get(context.Context, *GetDataNodes4GetArgs) (*GetDataNodes4GetReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetDataNodes4Get not implemented")
-}
-func (UnimplementedMasterGetServiceServer) SetupStream2DataNode(context.Context, *SetupStream2DataNodeArgs) (*SetupStream2DataNodeReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method SetupStream2DataNode not implemented")
 }
 func (UnimplementedMasterGetServiceServer) ReleaseLease4Get(context.Context, *ReleaseLease4GetArgs) (*ReleaseLease4GetReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ReleaseLease4Get not implemented")
@@ -164,24 +146,6 @@ func _MasterGetService_GetDataNodes4Get_Handler(srv interface{}, ctx context.Con
 	return interceptor(ctx, in, info, handler)
 }
 
-func _MasterGetService_SetupStream2DataNode_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(SetupStream2DataNodeArgs)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(MasterGetServiceServer).SetupStream2DataNode(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/pb.MasterGetService/SetupStream2DataNode",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MasterGetServiceServer).SetupStream2DataNode(ctx, req.(*SetupStream2DataNodeArgs))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 func _MasterGetService_ReleaseLease4Get_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ReleaseLease4GetArgs)
 	if err := dec(in); err != nil {
@@ -216,12 +180,98 @@ var MasterGetService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _MasterGetService_GetDataNodes4Get_Handler,
 		},
 		{
-			MethodName: "SetupStream2DataNode",
-			Handler:    _MasterGetService_SetupStream2DataNode_Handler,
-		},
-		{
 			MethodName: "ReleaseLease4Get",
 			Handler:    _MasterGetService_ReleaseLease4Get_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "Get.proto",
+}
+
+// SetupStreamClient is the client API for SetupStream service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
+type SetupStreamClient interface {
+	// SetupStream2DataNode Called by client.
+	// Set up the stream between client and chunkserver, then chunkserver call rpc send data
+	SetupStream2DataNode(ctx context.Context, in *SetupStream2DataNodeArgs, opts ...grpc.CallOption) (*SetupStream2DataNodeReply, error)
+}
+
+type setupStreamClient struct {
+	cc grpc.ClientConnInterface
+}
+
+func NewSetupStreamClient(cc grpc.ClientConnInterface) SetupStreamClient {
+	return &setupStreamClient{cc}
+}
+
+func (c *setupStreamClient) SetupStream2DataNode(ctx context.Context, in *SetupStream2DataNodeArgs, opts ...grpc.CallOption) (*SetupStream2DataNodeReply, error) {
+	out := new(SetupStream2DataNodeReply)
+	err := c.cc.Invoke(ctx, "/pb.SetupStream/SetupStream2DataNode", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// SetupStreamServer is the server API for SetupStream service.
+// All implementations must embed UnimplementedSetupStreamServer
+// for forward compatibility
+type SetupStreamServer interface {
+	// SetupStream2DataNode Called by client.
+	// Set up the stream between client and chunkserver, then chunkserver call rpc send data
+	SetupStream2DataNode(context.Context, *SetupStream2DataNodeArgs) (*SetupStream2DataNodeReply, error)
+	mustEmbedUnimplementedSetupStreamServer()
+}
+
+// UnimplementedSetupStreamServer must be embedded to have forward compatible implementations.
+type UnimplementedSetupStreamServer struct {
+}
+
+func (UnimplementedSetupStreamServer) SetupStream2DataNode(context.Context, *SetupStream2DataNodeArgs) (*SetupStream2DataNodeReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SetupStream2DataNode not implemented")
+}
+func (UnimplementedSetupStreamServer) mustEmbedUnimplementedSetupStreamServer() {}
+
+// UnsafeSetupStreamServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to SetupStreamServer will
+// result in compilation errors.
+type UnsafeSetupStreamServer interface {
+	mustEmbedUnimplementedSetupStreamServer()
+}
+
+func RegisterSetupStreamServer(s grpc.ServiceRegistrar, srv SetupStreamServer) {
+	s.RegisterService(&SetupStream_ServiceDesc, srv)
+}
+
+func _SetupStream_SetupStream2DataNode_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SetupStream2DataNodeArgs)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SetupStreamServer).SetupStream2DataNode(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/pb.SetupStream/SetupStream2DataNode",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SetupStreamServer).SetupStream2DataNode(ctx, req.(*SetupStream2DataNodeArgs))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+// SetupStream_ServiceDesc is the grpc.ServiceDesc for SetupStream service.
+// It's only intended for direct use with grpc.RegisterService,
+// and not to be introspected or modified (even as a copy)
+var SetupStream_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "pb.SetupStream",
+	HandlerType: (*SetupStreamServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "SetupStream2DataNode",
+			Handler:    _SetupStream_SetupStream2DataNode_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
