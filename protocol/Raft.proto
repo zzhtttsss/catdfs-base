@@ -3,7 +3,7 @@ package pb;
 option go_package="/pb";
 
 message Join2ClusterArgs {
-
+ string id = 1;
 }
 
 message Join2ClusterReply {
