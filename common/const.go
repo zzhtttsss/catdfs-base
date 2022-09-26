@@ -75,6 +75,8 @@ const (
 	MasterCheckAndStatFailed          = 3014
 	MasterCheckAndRenameFailed        = 3015
 	MasterCheckAndGetFailed           = 3016
+	MasterGetDataNodes4GetFailed      = 3017
+	MasterReleaseLease4GetFailed      = 3018
 	ShadowMasterRPCServerFailed       = 3049
 	ShadowMasterSendOperationFailed   = 3050
 	ShadowMasterFinishOperationFailed = 3051
@@ -97,8 +99,9 @@ const (
 
 // map key
 const (
-	ChunkIdString = "chunkId"
-	AddressString = "address"
+	ChunkIdString    = "chunkId"
+	AddressString    = "address"
+	ChunkIndexString = "ChunkIndex"
 )
 
 // const number
