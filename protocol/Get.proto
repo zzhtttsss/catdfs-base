@@ -69,11 +69,14 @@ service MasterGetService {
   // GetDataNodes4Get Called by client.
   // Allocate some DataNode to store a Chunk and select the primary DataNode
   rpc GetDataNodes4Get(GetDataNodes4GetArgs) returns(GetDataNodes4GetReply);
-  // SetupStream2DataNode Called by client.
-  // Set up the stream between client and chunkserver, then chunkserver call rpc send data
-  rpc SetupStream2DataNode(SetupStream2DataNodeArgs) returns(SetupStream2DataNodeReply);
 
   // ReleaseLease4Add Called by client.
   // Release the lease of a chunk.
   rpc ReleaseLease4Get(ReleaseLease4GetArgs) returns(ReleaseLease4GetReply);
+}
+
+service SetupStream {
+  // SetupStream2DataNode Called by client.
+  // Set up the stream between client and chunkserver, then chunkserver call rpc send data
+  rpc SetupStream2DataNode(SetupStream2DataNodeArgs) returns(SetupStream2DataNodeReply);
 }
