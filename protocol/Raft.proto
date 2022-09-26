@@ -1,0 +1,17 @@
+syntax="proto3";
+package pb;
+option go_package="/pb";
+
+message Join2ClusterArgs {
+
+}
+
+message Join2ClusterReply {
+
+}
+
+service RaftService {
+  // Join2Cluster Called by master.
+  // Join a master to the master cluster.
+  rpc Join2Cluster(Join2ClusterArgs) returns(Join2ClusterReply);
+}
