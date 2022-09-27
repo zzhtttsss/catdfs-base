@@ -58,7 +58,6 @@ message ReleaseLease4GetArgs {
 }
 
 message ReleaseLease4GetReply {
-
 }
 
 service MasterGetService {
@@ -75,8 +74,13 @@ service MasterGetService {
   rpc ReleaseLease4Get(ReleaseLease4GetArgs) returns(ReleaseLease4GetReply);
 }
 
+//The same as "PieceOfChunk". Waiting to refine.
+message Piece {
+  bytes piece=1;
+}
+
 service SetupStream {
   // SetupStream2DataNode Called by client.
-  // Set up the stream between client and chunkserver, then chunkserver call rpc send data
-  rpc SetupStream2DataNode(SetupStream2DataNodeArgs) returns(SetupStream2DataNodeReply);
+  // Set up the stream between client and chunkserver, then chunkserver returns data
+  rpc SetupStream2DataNode(SetupStream2DataNodeArgs) returns(stream Piece);
 }
