@@ -3,10 +3,12 @@ package common
 // Config key string
 const (
 	// common config
-	MasterAddr = "master.addr"
-	MasterPort = "master.port"
-	ChunkPort  = "chunk.port"
-	ClientPort = "client.port"
+	MasterAddr     = "master.addr"
+	MasterPort     = "master.rpcPort"
+	MasterRaftPort = "master.raftPort"
+	MasterRaftDir  = "master.raftDir"
+	ChunkPort      = "chunk.port"
+	ClientPort     = "client.port"
 
 	// master config
 	ChunkWaitTime      = "chunk.waitTime"
@@ -20,6 +22,9 @@ const (
 	ChunkHeartbeatReconnectCount = "chunk.heartbeat.reconnectCount"
 	ChunkHeartbeatSendTime       = "chunk.heartbeat.sendTime"
 	ChunkStoragePath             = "chunk.storage.path"
+
+	// etcd config
+	EtcdEndPoint = "etcd.endPoint"
 )
 
 // Network const value
@@ -97,7 +102,7 @@ const (
 	MinusOneString   = "-1"
 )
 
-// map key
+// map keys
 const (
 	ChunkIdString    = "chunkId"
 	AddressString    = "address"
@@ -112,4 +117,9 @@ const (
 	ChunkMBNum = 64
 	ChunkSize  = ChunkMBNum * MB
 	DirSize    = 0
+)
+
+// etcd keys
+const (
+	LeaderAddressKey = "leader-address"
 )

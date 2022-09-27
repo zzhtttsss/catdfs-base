@@ -20,16 +20,14 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-type Join2ClusterArgs struct {
+type JoinClusterArgs struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
-
-	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
 }
 
-func (x *Join2ClusterArgs) Reset() {
-	*x = Join2ClusterArgs{}
+func (x *JoinClusterArgs) Reset() {
+	*x = JoinClusterArgs{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_Raft_proto_msgTypes[0]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -37,13 +35,13 @@ func (x *Join2ClusterArgs) Reset() {
 	}
 }
 
-func (x *Join2ClusterArgs) String() string {
+func (x *JoinClusterArgs) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*Join2ClusterArgs) ProtoMessage() {}
+func (*JoinClusterArgs) ProtoMessage() {}
 
-func (x *Join2ClusterArgs) ProtoReflect() protoreflect.Message {
+func (x *JoinClusterArgs) ProtoReflect() protoreflect.Message {
 	mi := &file_Raft_proto_msgTypes[0]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -55,26 +53,19 @@ func (x *Join2ClusterArgs) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use Join2ClusterArgs.ProtoReflect.Descriptor instead.
-func (*Join2ClusterArgs) Descriptor() ([]byte, []int) {
+// Deprecated: Use JoinClusterArgs.ProtoReflect.Descriptor instead.
+func (*JoinClusterArgs) Descriptor() ([]byte, []int) {
 	return file_Raft_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *Join2ClusterArgs) GetId() string {
-	if x != nil {
-		return x.Id
-	}
-	return ""
-}
-
-type Join2ClusterReply struct {
+type JoinClusterReply struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 }
 
-func (x *Join2ClusterReply) Reset() {
-	*x = Join2ClusterReply{}
+func (x *JoinClusterReply) Reset() {
+	*x = JoinClusterReply{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_Raft_proto_msgTypes[1]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -82,13 +73,13 @@ func (x *Join2ClusterReply) Reset() {
 	}
 }
 
-func (x *Join2ClusterReply) String() string {
+func (x *JoinClusterReply) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*Join2ClusterReply) ProtoMessage() {}
+func (*JoinClusterReply) ProtoMessage() {}
 
-func (x *Join2ClusterReply) ProtoReflect() protoreflect.Message {
+func (x *JoinClusterReply) ProtoReflect() protoreflect.Message {
 	mi := &file_Raft_proto_msgTypes[1]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -100,8 +91,8 @@ func (x *Join2ClusterReply) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use Join2ClusterReply.ProtoReflect.Descriptor instead.
-func (*Join2ClusterReply) Descriptor() ([]byte, []int) {
+// Deprecated: Use JoinClusterReply.ProtoReflect.Descriptor instead.
+func (*JoinClusterReply) Descriptor() ([]byte, []int) {
 	return file_Raft_proto_rawDescGZIP(), []int{1}
 }
 
@@ -109,16 +100,14 @@ var File_Raft_proto protoreflect.FileDescriptor
 
 var file_Raft_proto_rawDesc = []byte{
 	0x0a, 0x0a, 0x52, 0x61, 0x66, 0x74, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x12, 0x02, 0x70, 0x62,
-	0x22, 0x22, 0x0a, 0x10, 0x4a, 0x6f, 0x69, 0x6e, 0x32, 0x43, 0x6c, 0x75, 0x73, 0x74, 0x65, 0x72,
-	0x41, 0x72, 0x67, 0x73, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09,
-	0x52, 0x02, 0x69, 0x64, 0x22, 0x13, 0x0a, 0x11, 0x4a, 0x6f, 0x69, 0x6e, 0x32, 0x43, 0x6c, 0x75,
-	0x73, 0x74, 0x65, 0x72, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x32, 0x4a, 0x0a, 0x0b, 0x52, 0x61, 0x66,
-	0x74, 0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x3b, 0x0a, 0x0c, 0x4a, 0x6f, 0x69, 0x6e,
-	0x32, 0x43, 0x6c, 0x75, 0x73, 0x74, 0x65, 0x72, 0x12, 0x14, 0x2e, 0x70, 0x62, 0x2e, 0x4a, 0x6f,
-	0x69, 0x6e, 0x32, 0x43, 0x6c, 0x75, 0x73, 0x74, 0x65, 0x72, 0x41, 0x72, 0x67, 0x73, 0x1a, 0x15,
-	0x2e, 0x70, 0x62, 0x2e, 0x4a, 0x6f, 0x69, 0x6e, 0x32, 0x43, 0x6c, 0x75, 0x73, 0x74, 0x65, 0x72,
-	0x52, 0x65, 0x70, 0x6c, 0x79, 0x42, 0x05, 0x5a, 0x03, 0x2f, 0x70, 0x62, 0x62, 0x06, 0x70, 0x72,
-	0x6f, 0x74, 0x6f, 0x33,
+	0x22, 0x11, 0x0a, 0x0f, 0x4a, 0x6f, 0x69, 0x6e, 0x43, 0x6c, 0x75, 0x73, 0x74, 0x65, 0x72, 0x41,
+	0x72, 0x67, 0x73, 0x22, 0x12, 0x0a, 0x10, 0x4a, 0x6f, 0x69, 0x6e, 0x43, 0x6c, 0x75, 0x73, 0x74,
+	0x65, 0x72, 0x52, 0x65, 0x70, 0x6c, 0x79, 0x32, 0x47, 0x0a, 0x0b, 0x52, 0x61, 0x66, 0x74, 0x53,
+	0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x38, 0x0a, 0x0b, 0x4a, 0x6f, 0x69, 0x6e, 0x43, 0x6c,
+	0x75, 0x73, 0x74, 0x65, 0x72, 0x12, 0x13, 0x2e, 0x70, 0x62, 0x2e, 0x4a, 0x6f, 0x69, 0x6e, 0x43,
+	0x6c, 0x75, 0x73, 0x74, 0x65, 0x72, 0x41, 0x72, 0x67, 0x73, 0x1a, 0x14, 0x2e, 0x70, 0x62, 0x2e,
+	0x4a, 0x6f, 0x69, 0x6e, 0x43, 0x6c, 0x75, 0x73, 0x74, 0x65, 0x72, 0x52, 0x65, 0x70, 0x6c, 0x79,
+	0x42, 0x05, 0x5a, 0x03, 0x2f, 0x70, 0x62, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -135,12 +124,12 @@ func file_Raft_proto_rawDescGZIP() []byte {
 
 var file_Raft_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
 var file_Raft_proto_goTypes = []interface{}{
-	(*Join2ClusterArgs)(nil),  // 0: pb.Join2ClusterArgs
-	(*Join2ClusterReply)(nil), // 1: pb.Join2ClusterReply
+	(*JoinClusterArgs)(nil),  // 0: pb.JoinClusterArgs
+	(*JoinClusterReply)(nil), // 1: pb.JoinClusterReply
 }
 var file_Raft_proto_depIdxs = []int32{
-	0, // 0: pb.RaftService.Join2Cluster:input_type -> pb.Join2ClusterArgs
-	1, // 1: pb.RaftService.Join2Cluster:output_type -> pb.Join2ClusterReply
+	0, // 0: pb.RaftService.JoinCluster:input_type -> pb.JoinClusterArgs
+	1, // 1: pb.RaftService.JoinCluster:output_type -> pb.JoinClusterReply
 	1, // [1:2] is the sub-list for method output_type
 	0, // [0:1] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
@@ -155,7 +144,7 @@ func file_Raft_proto_init() {
 	}
 	if !protoimpl.UnsafeEnabled {
 		file_Raft_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Join2ClusterArgs); i {
+			switch v := v.(*JoinClusterArgs); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -167,7 +156,7 @@ func file_Raft_proto_init() {
 			}
 		}
 		file_Raft_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Join2ClusterReply); i {
+			switch v := v.(*JoinClusterReply); i {
 			case 0:
 				return &v.state
 			case 1:
