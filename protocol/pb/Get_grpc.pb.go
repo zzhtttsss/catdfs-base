@@ -193,8 +193,8 @@ var MasterGetService_ServiceDesc = grpc.ServiceDesc{
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type SetupStreamClient interface {
 	// SetupStream2DataNode Called by client.
-	// Set up the stream between client and chunkserver, then chunkserver call rpc send data
-	SetupStream2DataNode(ctx context.Context, in *SetupStream2DataNodeArgs, opts ...grpc.CallOption) (*SetupStream2DataNodeReply, error)
+	// Set up the stream between client and chunkserver, then chunkserver returns data
+	SetupStream2DataNode(ctx context.Context, in *SetupStream2DataNodeArgs, opts ...grpc.CallOption) (SetupStream_SetupStream2DataNodeClient, error)
 }
 
 type setupStreamClient struct {
@@ -205,13 +205,36 @@ func NewSetupStreamClient(cc grpc.ClientConnInterface) SetupStreamClient {
 	return &setupStreamClient{cc}
 }
 
-func (c *setupStreamClient) SetupStream2DataNode(ctx context.Context, in *SetupStream2DataNodeArgs, opts ...grpc.CallOption) (*SetupStream2DataNodeReply, error) {
-	out := new(SetupStream2DataNodeReply)
-	err := c.cc.Invoke(ctx, "/pb.SetupStream/SetupStream2DataNode", in, out, opts...)
+func (c *setupStreamClient) SetupStream2DataNode(ctx context.Context, in *SetupStream2DataNodeArgs, opts ...grpc.CallOption) (SetupStream_SetupStream2DataNodeClient, error) {
+	stream, err := c.cc.NewStream(ctx, &SetupStream_ServiceDesc.Streams[0], "/pb.SetupStream/SetupStream2DataNode", opts...)
 	if err != nil {
 		return nil, err
 	}
-	return out, nil
+	x := &setupStreamSetupStream2DataNodeClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
+		return nil, err
+	}
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
+	}
+	return x, nil
+}
+
+type SetupStream_SetupStream2DataNodeClient interface {
+	Recv() (*Piece, error)
+	grpc.ClientStream
+}
+
+type setupStreamSetupStream2DataNodeClient struct {
+	grpc.ClientStream
+}
+
+func (x *setupStreamSetupStream2DataNodeClient) Recv() (*Piece, error) {
+	m := new(Piece)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
 }
 
 // SetupStreamServer is the server API for SetupStream service.
@@ -219,8 +242,8 @@ func (c *setupStreamClient) SetupStream2DataNode(ctx context.Context, in *SetupS
 // for forward compatibility
 type SetupStreamServer interface {
 	// SetupStream2DataNode Called by client.
-	// Set up the stream between client and chunkserver, then chunkserver call rpc send data
-	SetupStream2DataNode(context.Context, *SetupStream2DataNodeArgs) (*SetupStream2DataNodeReply, error)
+	// Set up the stream between client and chunkserver, then chunkserver returns data
+	SetupStream2DataNode(*SetupStream2DataNodeArgs, SetupStream_SetupStream2DataNodeServer) error
 	mustEmbedUnimplementedSetupStreamServer()
 }
 
@@ -228,8 +251,8 @@ type SetupStreamServer interface {
 type UnimplementedSetupStreamServer struct {
 }
 
-func (UnimplementedSetupStreamServer) SetupStream2DataNode(context.Context, *SetupStream2DataNodeArgs) (*SetupStream2DataNodeReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method SetupStream2DataNode not implemented")
+func (UnimplementedSetupStreamServer) SetupStream2DataNode(*SetupStream2DataNodeArgs, SetupStream_SetupStream2DataNodeServer) error {
+	return status.Errorf(codes.Unimplemented, "method SetupStream2DataNode not implemented")
 }
 func (UnimplementedSetupStreamServer) mustEmbedUnimplementedSetupStreamServer() {}
 
@@ -244,22 +267,25 @@ func RegisterSetupStreamServer(s grpc.ServiceRegistrar, srv SetupStreamServer) {
 	s.RegisterService(&SetupStream_ServiceDesc, srv)
 }
 
-func _SetupStream_SetupStream2DataNode_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(SetupStream2DataNodeArgs)
-	if err := dec(in); err != nil {
-		return nil, err
+func _SetupStream_SetupStream2DataNode_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(SetupStream2DataNodeArgs)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
 	}
-	if interceptor == nil {
-		return srv.(SetupStreamServer).SetupStream2DataNode(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/pb.SetupStream/SetupStream2DataNode",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SetupStreamServer).SetupStream2DataNode(ctx, req.(*SetupStream2DataNodeArgs))
-	}
-	return interceptor(ctx, in, info, handler)
+	return srv.(SetupStreamServer).SetupStream2DataNode(m, &setupStreamSetupStream2DataNodeServer{stream})
+}
+
+type SetupStream_SetupStream2DataNodeServer interface {
+	Send(*Piece) error
+	grpc.ServerStream
+}
+
+type setupStreamSetupStream2DataNodeServer struct {
+	grpc.ServerStream
+}
+
+func (x *setupStreamSetupStream2DataNodeServer) Send(m *Piece) error {
+	return x.ServerStream.SendMsg(m)
 }
 
 // SetupStream_ServiceDesc is the grpc.ServiceDesc for SetupStream service.
@@ -268,12 +294,13 @@ func _SetupStream_SetupStream2DataNode_Handler(srv interface{}, ctx context.Cont
 var SetupStream_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "pb.SetupStream",
 	HandlerType: (*SetupStreamServer)(nil),
-	Methods: []grpc.MethodDesc{
+	Methods:     []grpc.MethodDesc{},
+	Streams: []grpc.StreamDesc{
 		{
-			MethodName: "SetupStream2DataNode",
-			Handler:    _SetupStream_SetupStream2DataNode_Handler,
+			StreamName:    "SetupStream2DataNode",
+			Handler:       _SetupStream_SetupStream2DataNode_Handler,
+			ServerStreams: true,
 		},
 	},
-	Streams:  []grpc.StreamDesc{},
 	Metadata: "Get.proto",
 }
