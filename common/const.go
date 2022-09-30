@@ -123,3 +123,15 @@ const (
 const (
 	LeaderAddressKey = "leader-address"
 )
+
+const (
+	OperationAdd    = "Add"
+	OperationGet    = "Get"
+	OperationRemove = "Remove"
+	OperationMove   = "Move"
+	OperationRename = "Rename"
+	OperationList   = "List"
+	OperationMkdir  = "Mkdir"
+	OperationStat   = "Stat"
+	OperationFinish = "Finish"
+)
