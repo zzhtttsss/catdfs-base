@@ -3,7 +3,6 @@ package common
 // Config key string
 const (
 	// common config
-	MasterAddr     = "master.addr"
 	MasterPort     = "master.rpcPort"
 	MasterRaftPort = "master.raftPort"
 	MasterRaftDir  = "master.raftDir"
@@ -11,12 +10,9 @@ const (
 	ClientPort     = "client.port"
 
 	// master config
-	ChunkWaitTime      = "chunk.waitTime"
-	ChunkDieTime       = "chunk.dieTime"
-	ReplicaNum         = "chunk.replicaNum"
-	SMAddr             = "shadowMaster.addr"
-	SMPort             = "shadowMaster.port"
-	SMFsimageFlushTime = "shadowMaster.fsimageFlushTime"
+	ChunkWaitTime = "chunk.waitTime"
+	ChunkDieTime  = "chunk.dieTime"
+	ReplicaNum    = "chunk.replicaNum"
 
 	// chunk server config
 	ChunkHeartbeatReconnectCount = "chunk.heartbeat.reconnectCount"
