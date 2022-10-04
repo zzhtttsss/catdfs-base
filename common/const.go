@@ -124,6 +124,7 @@ const (
 	LeaderAddressKey = "leader-address"
 )
 
+// operation type
 const (
 	OperationAdd    = "Add"
 	OperationGet    = "Get"
@@ -134,4 +135,17 @@ const (
 	OperationMkdir  = "Mkdir"
 	OperationStat   = "Stat"
 	OperationFinish = "Finish"
+)
+
+// operation stage
+const (
+	CheckArgs    = 1
+	GetDataNodes = 2
+	ReleaseLease = 3
+	UnlockDic    = 4
+)
+
+const (
+	IsFile4AddFile = true
+	IsFile4AddDic  = false
 )
