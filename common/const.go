@@ -122,15 +122,17 @@ const (
 
 // operation type
 const (
-	OperationAdd    = "Add"
-	OperationGet    = "Get"
-	OperationRemove = "Remove"
-	OperationMove   = "Move"
-	OperationRename = "Rename"
-	OperationList   = "List"
-	OperationMkdir  = "Mkdir"
-	OperationStat   = "Stat"
-	OperationFinish = "Finish"
+	OperationRegister  = "Register"
+	OperationHeartbeat = "Heartbeat"
+	OperationAdd       = "Add"
+	OperationGet       = "Get"
+	OperationRemove    = "Remove"
+	OperationMove      = "Move"
+	OperationRename    = "Rename"
+	OperationList      = "List"
+	OperationMkdir     = "Mkdir"
+	OperationStat      = "Stat"
+	OperationFinish    = "Finish"
 )
 
 // operation stage
