@@ -10,9 +10,9 @@ const (
 	ClientPort     = "client.port"
 
 	// master config
-	ChunkWaitTime = "chunk.waitTime"
-	ChunkDieTime  = "chunk.dieTime"
-	ReplicaNum    = "chunk.replicaNum"
+	MasterCheckTime = "chunk.checkTime"
+	ChunkDieTime    = "chunk.dieTime"
+	ReplicaNum      = "chunk.replicaNum"
 
 	// chunk server config
 	ChunkHeartbeatReconnectCount = "chunk.heartbeat.reconnectCount"
