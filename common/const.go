@@ -60,27 +60,24 @@ const (
 
 // master error code
 const (
-	MasterRPCServerFailed             = 3001
-	MasterRegisterFailed              = 3002
-	MasterHeartbeatFailed             = 3003
-	MasterCheckArgs4AddFailed         = 3004
-	MasterGetDataNodes4AddFailed      = 3005
-	MasterUnlockDic4AddFailed         = 3006
-	MasterReleaseLease4AddFailed      = 3007
-	MasterSendOperationFailed         = 3008
-	MasterFinishOperationFailed       = 3009
-	MasterCheckAndMkdirFailed         = 3010
-	MasterCheckAndMoveFailed          = 3011
-	MasterCheckAndRemoveFailed        = 3012
-	MasterCheckAndListFailed          = 3013
-	MasterCheckAndStatFailed          = 3014
-	MasterCheckAndRenameFailed        = 3015
-	MasterCheckAndGetFailed           = 3016
-	MasterGetDataNodes4GetFailed      = 3017
-	MasterReleaseLease4GetFailed      = 3018
-	ShadowMasterRPCServerFailed       = 3049
-	ShadowMasterSendOperationFailed   = 3050
-	ShadowMasterFinishOperationFailed = 3051
+	MasterRPCServerFailed        = 3001
+	MasterRegisterFailed         = 3002
+	MasterHeartbeatFailed        = 3003
+	MasterCheckArgs4AddFailed    = 3004
+	MasterGetDataNodes4AddFailed = 3005
+	MasterUnlockDic4AddFailed    = 3006
+	MasterReleaseLease4AddFailed = 3007
+	MasterSendOperationFailed    = 3008
+	MasterFinishOperationFailed  = 3009
+	MasterCheckAndMkdirFailed    = 3010
+	MasterCheckAndMoveFailed     = 3011
+	MasterCheckAndRemoveFailed   = 3012
+	MasterCheckAndListFailed     = 3013
+	MasterCheckAndStatFailed     = 3014
+	MasterCheckAndRenameFailed   = 3015
+	MasterCheckAndGetFailed      = 3016
+	MasterGetDataNodes4GetFailed = 3017
+	MasterReleaseLease4GetFailed = 3018
 )
 
 // chunkserver error code
@@ -93,9 +90,10 @@ const (
 
 // delimiter
 const (
-	AddressDelimiter = ":"
-	ChunkIdDelimiter = "_"
-	MinusOneString   = "-1"
+	AddressDelimiter  = ":"
+	ChunkIdDelimiter  = "_"
+	MinusOneString    = "-1"
+	SnapshotDelimiter = "$$$$$$\n"
 )
 
 // map keys
