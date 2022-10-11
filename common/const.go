@@ -40,8 +40,6 @@ const (
 const (
 	LogDBName         = "logs.dat"
 	StableDBName      = "stable.dat"
-	LogFileName       = "log/edits.txt"
-	DirectoryFileName = "log/fsimage.txt"
 	NormalTimeFormat  = "2006-01-02 15:04:05"
 	LogFileTimeFormat = "2006-01-02.15.04.05"
 )
@@ -117,7 +115,7 @@ const (
 
 // etcd keys
 const (
-	TinyDFSPrefix     = "tinyDFS/"
+	TinyDFSPrefix     = "/tinyDFS/"
 	FollowerKeyPrefix = TinyDFSPrefix + "follower/"
 	LeaderAddressKey  = TinyDFSPrefix + "leader-address"
 )
