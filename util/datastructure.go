@@ -1,0 +1,64 @@
+package util
+
+import (
+	"fmt"
+	"strings"
+	"sync"
+	"tinydfs-base/common"
+)
+
+type Queue[T fmt.Stringer] struct {
+	data []T
+	mu   *sync.RWMutex
+}
+
+func NewQueue[T fmt.Stringer]() *Queue[T] {
+	return &Queue[T]{
+		data: make([]T, 0),
+		mu:   &sync.RWMutex{},
+	}
+}
+
+func (q *Queue[T]) Len() int {
+	return len(q.data)
+}
+
+func (q *Queue[T]) Push(x T) {
+	q.mu.Lock()
+	defer q.mu.Unlock()
+	q.data = append(q.data, x)
+}
+
+func (q *Queue[T]) Pop() (t T) {
+	q.mu.Lock()
+	defer q.mu.Unlock()
+	if len(q.data) == 0 {
+		return
+	}
+	t = q.data[0]
+	q.data = q.data[1:]
+	return
+}
+
+func (q *Queue[T]) Top() (t T) {
+	q.mu.RLock()
+	defer q.mu.RUnlock()
+	if len(q.data) == 0 {
+		return
+	}
+	t = q.data[0]
+	return
+}
+
+func (q *Queue[T]) String() string {
+	// Make sure there is no write operations
+	q.mu.RLock()
+	defer q.mu.RUnlock()
+	// Calling this function represents the leader has been changed, so the #{state} is unavailable
+	sb := strings.Builder{}
+	for q.Len() != 0 {
+		x := q.Pop()
+		sb.WriteString(fmt.Sprintf("%s%s", x, common.DollarDelimiter))
+	}
+	return sb.String()
+}
