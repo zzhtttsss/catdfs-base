@@ -40,6 +40,17 @@ func (q *Queue[T]) Pop() (t T) {
 	return
 }
 
+func (q *Queue[T]) BatchPop(num int) (t []T) {
+	q.mu.Lock()
+	defer q.mu.Unlock()
+	if len(q.data) < num {
+		return
+	}
+	t = q.data[0:num]
+	q.data = q.data[num:]
+	return
+}
+
 func (q *Queue[T]) Top() (t T) {
 	q.mu.RLock()
 	defer q.mu.RUnlock()
@@ -47,6 +58,16 @@ func (q *Queue[T]) Top() (t T) {
 		return
 	}
 	t = q.data[0]
+	return
+}
+
+func (q *Queue[T]) BatchTop(num int) (t []T) {
+	q.mu.Lock()
+	defer q.mu.Unlock()
+	if len(q.data) < num {
+		return
+	}
+	t = q.data[0:num]
 	return
 }
 

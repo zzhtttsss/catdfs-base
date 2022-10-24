@@ -3,16 +3,18 @@ package common
 // Config key string
 const (
 	// common config
-	MasterPort     = "master.rpcPort"
-	MasterRaftPort = "master.raftPort"
-	MasterRaftDir  = "master.raftDir"
-	ChunkPort      = "chunk.port"
-	ClientPort     = "client.port"
+	MasterPort         = "master.rpcPort"
+	MasterRaftPort     = "master.raftPort"
+	MasterRaftDir      = "master.raftDir"
+	ChunkPort          = "chunk.port"
+	ClientPort         = "client.port"
+	ChunkHeartbeatTime = "chunk.heartbeatTime"
 
 	// master config
-	MasterCheckTime = "chunk.checkTime"
-	ChunkDieTime    = "chunk.dieTime"
-	ReplicaNum      = "chunk.replicaNum"
+	MasterCheckTime  = "chunk.checkTime"
+	ChunkWaitingTime = "chunk.waitingTime"
+	ChunkDieTime     = "chunk.dieTime"
+	ReplicaNum       = "chunk.replicaNum"
 
 	// chunk server config
 	ChunkHeartbeatReconnectCount = "chunk.heartbeat.reconnectCount"
@@ -68,7 +70,6 @@ const (
 	MasterCheckArgs4AddFailed
 	MasterGetDataNodes4AddFailed
 	MasterUnlockDic4AddFailed
-	MasterReleaseLease4AddFailed
 	MasterSendOperationFailed
 	MasterFinishOperationFailed
 	MasterCheckAndMkdirFailed
@@ -79,7 +80,6 @@ const (
 	MasterCheckAndRenameFailed
 	MasterCheckAndGetFailed
 	MasterGetDataNodes4GetFailed
-	MasterReleaseLease4GetFailed
 	MasterShrinkFailed
 	MasterExpandFailed
 )
@@ -137,7 +137,6 @@ const (
 	OperationList       = "List"
 	OperationMkdir      = "Mkdir"
 	OperationStat       = "Stat"
-	OperationFinish     = "Finish"
 	OperationShrink     = "Shrink"
 	OperationExpand     = "Expand"
 	OperationDeregister = "Deregister"
@@ -147,8 +146,7 @@ const (
 const (
 	CheckArgs    = 1
 	GetDataNodes = 2
-	ReleaseLease = 3
-	UnlockDic    = 4
+	UnlockDic    = 3
 )
 
 const (

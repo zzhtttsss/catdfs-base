@@ -30,11 +30,8 @@ message GetDataNodes4AddArgs {
 
 // GetDataNodes4AddReply
 // dataNodes: ids of all DataNodes that will store this chunk
-// primaryNode: id of the primary DataNode
 message GetDataNodes4AddReply {
   repeated string dataNodes = 1;
-  string primaryNode = 2;
-
 }
 
 // UnlockDic4AddArgs

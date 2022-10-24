@@ -5,6 +5,7 @@ option go_package="/pb";
 message HeartbeatArgs {
   string Id = 1;
   repeated string ChunkId = 2;
+  int64 IOLoad = 3;
 }
 
 message HeartbeatReply {
