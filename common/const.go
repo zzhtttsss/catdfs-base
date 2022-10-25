@@ -24,6 +24,7 @@ const (
 	ChunkHeartbeatSendTime       = "chunk.heartbeat.sendTime"
 	ChunkStoragePath             = "chunk.storage.path"
 	ChunkCheckTime               = "chunk.storage.checkTime"
+	ChunkDeadTime                = "chunk.storage.chunkDeadTime"
 
 	// etcd config
 	EtcdEndPoint = "etcd.endPoint"
