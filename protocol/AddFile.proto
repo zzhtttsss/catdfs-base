@@ -80,7 +80,8 @@ message PieceOfChunk {
 
 // TransferChunkReply
 message TransferChunkReply {
-
+  string chunkId = 1;
+  repeated string failAdds = 2;
 }
 
 service PipLineService {

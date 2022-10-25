@@ -6,9 +6,18 @@ message HeartbeatArgs {
   string Id = 1;
   repeated string ChunkId = 2;
   int64 IOLoad = 3;
+  repeated ChunkInfo SuccessChunkInfos = 4;
+  repeated ChunkInfo FailChunkInfos = 5;
 }
 
 message HeartbeatReply {
+  repeated ChunkInfo ChunkInfos = 1;
+  repeated string DataNodeAddress = 2;
+}
+
+message ChunkInfo{
+  string ChunkId = 1;
+  string DataNodeId = 2;
 }
 
 service HeartbeatService {

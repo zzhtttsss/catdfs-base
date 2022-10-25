@@ -33,11 +33,17 @@ const (
 	LocalIP = "127.0.0.1"
 )
 
-// Datanode status
+// DataNode status
 const (
 	Died    = 0
 	Alive   = 1
 	Waiting = 2
+)
+
+// FutureSendChunks status
+const (
+	WaitToInform = 0
+	WaitToSend   = 1
 )
 
 // Persistence String
