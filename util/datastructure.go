@@ -5,6 +5,7 @@ import (
 	"strings"
 	"sync"
 	"tinydfs-base/common"
+	"tinydfs-base/protocol/pb"
 )
 
 type Queue[T fmt.Stringer] struct {
@@ -82,4 +83,36 @@ func (q *Queue[T]) String() string {
 		sb.WriteString(fmt.Sprintf("%s%s", x, common.DollarDelimiter))
 	}
 	return sb.String()
+}
+
+type ChunkSendResult struct {
+	ChunkId          string   `json:"chunk_id"`
+	FailDataNodes    []string `json:"fail_data_nodes"`
+	SuccessDataNodes []string `json:"success_data_nodes"`
+}
+
+func ConvReply2SingleResult(reply *pb.TransferChunkReply, dataNodeIds []string,
+	adds []string) *ChunkSendResult {
+	singleSendResult := &ChunkSendResult{
+		ChunkId: reply.ChunkId,
+	}
+	failDataNodes := make([]string, 0, len(adds))
+	successDataNodes := make([]string, 0, len(adds))
+	for i, address := range adds {
+		isFail := false
+		for _, a := range reply.FailAdds {
+			if a == address {
+				isFail = true
+				break
+			}
+		}
+		if isFail {
+			failDataNodes = append(failDataNodes, dataNodeIds[i])
+			continue
+		}
+		successDataNodes = append(successDataNodes, dataNodeIds[i])
+	}
+	singleSendResult.SuccessDataNodes = successDataNodes
+	singleSendResult.FailDataNodes = failDataNodes
+	return singleSendResult
 }

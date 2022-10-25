@@ -31,13 +31,17 @@ message GetDataNodes4AddArgs {
 // GetDataNodes4AddReply
 // dataNodes: ids of all DataNodes that will store this chunk
 message GetDataNodes4AddReply {
-  repeated string dataNodes = 1;
+  repeated string dataNodeIds = 1;
+  repeated string dataNodes = 2;
 }
 
 // UnlockDic4AddArgs
 // fileNodeId: id of FileNode which has been stored by chunkserver and need to be unlocked.
 message UnlockDic4AddArgs {
   string fileNodeId = 1;
+  string filePath = 2;
+  repeated ChunkInfo4Add infos = 3;
+  repeated string failChunkIds = 4;
 }
 
 message UnlockDic4AddReply {
@@ -46,12 +50,20 @@ message UnlockDic4AddReply {
 
 // ReleaseLease4AddArgs
 // chunkId: id of chunk which has been stored by chunkserver and need to release its lease
-message ReleaseLease4AddArgs {
-  string chunkId = 1;
+message Callback4AddArgs {
+  string fileNodeId = 1;
+  repeated ChunkInfo4Add infos = 2;
+  repeated string failChunkIds = 3;
 }
 
-message ReleaseLease4AddReply {
+message Callback4AddReply {
 
+}
+
+message ChunkInfo4Add {
+  string chunkId = 1;
+  repeated string successNode = 2;
+  repeated string failNode = 3;
 }
 
 service MasterAddService {
@@ -69,7 +81,7 @@ service MasterAddService {
 
   // ReleaseLease4Add Called by client.
   // Release the lease of a chunk.
-  rpc ReleaseLease4Add(ReleaseLease4AddArgs) returns(ReleaseLease4AddReply);
+  rpc Callback4Add(Callback4AddArgs) returns(Callback4AddReply);
 }
 
 // TransferChunkArgs

@@ -11,17 +11,19 @@ const (
 	ChunkHeartbeatTime = "chunk.heartbeatTime"
 
 	// master config
-	MasterCheckTime  = "chunk.checkTime"
-	ChunkWaitingTime = "chunk.waitingTime"
-	ChunkDieTime     = "chunk.dieTime"
-	ReplicaNum       = "chunk.replicaNum"
+	MasterCheckTime             = "chunk.checkTime"
+	ChunkWaitingTime            = "chunk.waitingTime"
+	ChunkDieTime                = "chunk.dieTime"
+	ReplicaNum                  = "chunk.replicaNum"
+	ChunkDeadChunkCheckTime     = "chunk.deadChunkCheckTime"
+	ChunkDeadChunkCopyThreshold = "chunk.deadChunkCopyThreshold"
+	DirectoryCheckTime          = "chunk.directoryCheckTime"
 
 	// chunk server config
 	ChunkHeartbeatReconnectCount = "chunk.heartbeat.reconnectCount"
 	ChunkHeartbeatSendTime       = "chunk.heartbeat.sendTime"
 	ChunkStoragePath             = "chunk.storage.path"
-	ChunkDeadChunkCheckTime      = "chunk.deadChunkCheckTime"
-	ChunkDeadChunkCopyThreshold  = "chunk.deadChunkCopyThreshold"
+	ChunkCheckTime               = "chunk.storage.checkTime"
 
 	// etcd config
 	EtcdEndPoint = "etcd.endPoint"
@@ -133,19 +135,19 @@ const (
 
 // operation type
 const (
-	OperationRegister   = "Register"
-	OperationHeartbeat  = "Heartbeat"
-	OperationAdd        = "Add"
-	OperationGet        = "Get"
-	OperationRemove     = "Remove"
-	OperationMove       = "Move"
-	OperationRename     = "Rename"
-	OperationList       = "List"
-	OperationMkdir      = "Mkdir"
-	OperationStat       = "Stat"
-	OperationShrink     = "Shrink"
-	OperationExpand     = "Expand"
-	OperationDeregister = "Deregister"
+	OperationRegister       = "Register"
+	OperationHeartbeat      = "Heartbeat"
+	OperationAdd            = "Add"
+	OperationGet            = "Get"
+	OperationRemove         = "Remove"
+	OperationMove           = "Move"
+	OperationRename         = "Rename"
+	OperationList           = "List"
+	OperationMkdir          = "Mkdir"
+	OperationStat           = "Stat"
+	OperationAllocateChunks = "AllocateChunks"
+	OperationExpand         = "Expand"
+	OperationDeregister     = "Deregister"
 )
 
 // operation stage
