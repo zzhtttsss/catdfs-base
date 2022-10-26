@@ -148,14 +148,16 @@ const (
 	OperationStat           = "Stat"
 	OperationAllocateChunks = "AllocateChunks"
 	OperationExpand         = "Expand"
-	OperationDeregister     = "Deregister"
+	OperationDegrade        = "Degrade"
 )
 
 // operation stage
 const (
-	CheckArgs    = 1
-	GetDataNodes = 2
-	UnlockDic    = 3
+	CheckArgs       = 1
+	GetDataNodes    = 2
+	UnlockDic       = 3
+	Degrade2Waiting = 1
+	Degrade2Dead    = 2
 )
 
 const (
