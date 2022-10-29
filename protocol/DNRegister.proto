@@ -3,11 +3,12 @@ package pb;
 option go_package="/pb";
 
 message DNRegisterArgs {
-
+  repeated string ChunkIds = 1;
 }
 
 message DNRegisterReply {
   string Id = 1;
+  uint32 PendingCount = 2;
 }
 
 service RegisterService {
