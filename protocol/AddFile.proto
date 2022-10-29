@@ -25,14 +25,17 @@ message CheckArgs4AddReply {
 // chunkIndex: the index of chunk
 message GetDataNodes4AddArgs {
   string fileNodeId = 1;
-  int32 chunkIndex = 2;
+  int32 chunkNum = 2;
 }
 
 // GetDataNodes4AddReply
 // dataNodes: ids of all DataNodes that will store this chunk
 message GetDataNodes4AddReply {
-  repeated string dataNodeIds = 1;
-  repeated string dataNodes = 2;
+  message Array{
+    repeated string items = 1;
+  }
+  repeated Array dataNodeIds = 1;
+  repeated Array dataNodeAdds = 2;
 }
 
 // UnlockDic4AddArgs
