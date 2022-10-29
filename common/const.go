@@ -38,7 +38,7 @@ const (
 
 // DataNode status
 const (
-	Died    = 0
+	Cold    = 0
 	Alive   = 1
 	Waiting = 2
 )
@@ -47,6 +47,12 @@ const (
 const (
 	WaitToInform = 0
 	WaitToSend   = 1
+)
+
+// SendType in ChunkSendInfo
+const (
+	Copy = 0
+	Move = 1
 )
 
 // Persistence String

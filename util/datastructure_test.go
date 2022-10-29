@@ -1,6 +1,7 @@
 package util
 
 import (
+	"fmt"
 	"github.com/stretchr/testify/assert"
 	"strconv"
 	"sync"
@@ -31,11 +32,10 @@ func TestNewQueue(t *testing.T) {
 }
 
 func TestQueue_Pop(t *testing.T) {
-	queue := Queue[String]{
-		data: []String{"Hello", "World", "HuHu"},
-		mu:   &sync.RWMutex{},
-	}
-	assert.Equal(t, "Hello", queue.Pop())
+	queue := NewQueue[String]()
+	queue.Push("aaa")
+	a := queue.Pop()
+	fmt.Println(a == "aaa")
 }
 
 func TestQueue_Push(t *testing.T) {
@@ -47,4 +47,10 @@ func TestQueue_Push(t *testing.T) {
 	queue.Push("World")
 	assert.Equal(t, 2, len(queue.data))
 	assert.Equal(t, "Hello", queue.Pop())
+}
+
+func TestInterfaces2TypeArr(t *testing.T) {
+	test := []interface{}{"aaaa", "bbbb", "cccc"}
+	res := Interfaces2TypeArr[string](test)
+	fmt.Println(res)
 }

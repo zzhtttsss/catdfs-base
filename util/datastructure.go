@@ -89,12 +89,14 @@ type ChunkSendResult struct {
 	ChunkId          string   `json:"chunk_id"`
 	FailDataNodes    []string `json:"fail_data_nodes"`
 	SuccessDataNodes []string `json:"success_data_nodes"`
+	SendType         int      `json:"send_type"`
 }
 
 func ConvReply2SingleResult(reply *pb.TransferChunkReply, dataNodeIds []string,
-	adds []string) *ChunkSendResult {
+	adds []string, sendType int) *ChunkSendResult {
 	singleSendResult := &ChunkSendResult{
-		ChunkId: reply.ChunkId,
+		ChunkId:  reply.ChunkId,
+		SendType: sendType,
 	}
 	failDataNodes := make([]string, 0, len(adds))
 	successDataNodes := make([]string, 0, len(adds))

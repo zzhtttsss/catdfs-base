@@ -18,6 +18,7 @@ message HeartbeatReply {
 message ChunkInfo{
   string ChunkId = 1;
   string DataNodeId = 2;
+  int32 SendType = 3;
 }
 
 service HeartbeatService {
