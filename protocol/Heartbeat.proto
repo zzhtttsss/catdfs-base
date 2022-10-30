@@ -8,6 +8,7 @@ message HeartbeatArgs {
   int64 IOLoad = 3;
   repeated ChunkInfo SuccessChunkInfos = 4;
   repeated ChunkInfo FailChunkInfos = 5;
+  bool IsReady = 6;
 }
 
 message HeartbeatReply {

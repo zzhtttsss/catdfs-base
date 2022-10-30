@@ -53,6 +53,7 @@ const (
 const (
 	Copy = 0
 	Move = 1
+	Add  = 2
 )
 
 // Persistence String
