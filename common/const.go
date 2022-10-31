@@ -17,7 +17,8 @@ const (
 	ReplicaNum                  = "chunk.replicaNum"
 	ChunkDeadChunkCheckTime     = "chunk.deadChunkCheckTime"
 	ChunkDeadChunkCopyThreshold = "chunk.deadChunkCopyThreshold"
-	DirectoryCheckTime          = "chunk.directoryCheckTime"
+	DirectoryCheckTime          = "master.directoryCheckTime"
+	CleanupTime                 = "master.cleanupTime"
 
 	// chunk server config
 	ChunkHeartbeatReconnectCount = "chunk.heartbeat.reconnectCount"
@@ -156,6 +157,8 @@ const (
 	OperationAllocateChunks = "AllocateChunks"
 	OperationExpand         = "Expand"
 	OperationDegrade        = "Degrade"
+	OperationTreeCheck      = "TreeCheck"
+	OperationDataCheck      = "DataCheck"
 )
 
 // operation stage
