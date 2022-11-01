@@ -11,6 +11,7 @@ message FileInfo {
 // path: path of the directory need to be listed
 message CheckAndListArgs {
   string path = 1;
+  bool isLatest = 2;
 }
 
 message CheckAndListReply {

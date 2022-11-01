@@ -6,12 +6,13 @@ option go_package="/pb";
 // path: file path
 message CheckAndStatArgs {
   string path = 1;
+  bool isLatest = 2;
 }
 
 message CheckAndStatReply {
-  string fileName=1;
-  bool isFile=2;
-  int64 size=3;
+  string fileName = 1;
+  bool isFile = 2;
+  int64 size = 3;
 }
 
 service MasterStatService {
