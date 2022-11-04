@@ -52,9 +52,10 @@ const (
 
 // SendType in ChunkSendInfo
 const (
-	CopySendType = 0
-	MoveSendType = 1
-	AddSendType  = 2
+	CopySendType   = 0
+	MoveSendType   = 1
+	AddSendType    = 2
+	DeleteSendType = 3
 )
 
 // Persistence String
