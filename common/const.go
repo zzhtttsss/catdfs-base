@@ -26,6 +26,7 @@ const (
 	ChunkStoragePath             = "chunk.storage.path"
 	ChunkCheckTime               = "chunk.storage.checkTime"
 	ChunkDeadTime                = "chunk.storage.chunkDeadTime"
+	ChunkReadyThreshold          = "chunk.readyThreshold"
 
 	// etcd config
 	EtcdEndPoint = "etcd.endPoint"
