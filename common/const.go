@@ -28,6 +28,9 @@ const (
 	ChunkDeadTime                = "chunk.storage.chunkDeadTime"
 	ChunkReadyThreshold          = "chunk.readyThreshold"
 
+	// client config
+	ClientLogLevel = "client.logLevel"
+
 	// etcd config
 	EtcdEndPoint = "etcd.endPoint"
 )

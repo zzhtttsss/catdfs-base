@@ -20,9 +20,9 @@ func InitConfig() {
 	}
 }
 
-func InitLogger(logger *logrus.Logger) {
+func InitLogger(logger *logrus.Logger, needPrint bool) *logrus.Logger {
 	if logger != nil {
-		return
+		return logger
 	}
 
 	path := "./catdfs_log"
@@ -32,14 +32,18 @@ func InitLogger(logger *logrus.Logger) {
 		rotatelogs.WithMaxAge(24*time.Hour),        // 文件最大保存时间
 		rotatelogs.WithRotationTime(1*time.Minute), // 日志切割时间间隔
 	)
-
-	pathMap := lfshook.WriterMap{
-		logrus.DebugLevel: writer,
-		logrus.InfoLevel:  writer,
-		logrus.ErrorLevel: writer,
-		logrus.PanicLevel: writer,
-		logrus.FatalLevel: writer,
-	}
 	logger = logrus.New()
-	logger.Hooks.Add(lfshook.NewHook(pathMap, &logrus.TextFormatter{}))
+	if needPrint {
+		pathMap := lfshook.WriterMap{
+			logrus.DebugLevel: writer,
+			logrus.InfoLevel:  writer,
+			logrus.ErrorLevel: writer,
+			logrus.PanicLevel: writer,
+			logrus.FatalLevel: writer,
+		}
+		logger.Hooks.Add(lfshook.NewHook(pathMap, &logrus.TextFormatter{}))
+		return logger
+	}
+	logger.SetOutput(writer)
+	return logger
 }
