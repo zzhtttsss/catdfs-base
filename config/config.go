@@ -35,8 +35,10 @@ func InitLogger(logger *logrus.Logger, needPrint bool) *logrus.Logger {
 	logger = logrus.New()
 	if needPrint {
 		pathMap := lfshook.WriterMap{
+			logrus.TraceLevel: writer,
 			logrus.DebugLevel: writer,
 			logrus.InfoLevel:  writer,
+			logrus.WarnLevel:  writer,
 			logrus.ErrorLevel: writer,
 			logrus.PanicLevel: writer,
 			logrus.FatalLevel: writer,

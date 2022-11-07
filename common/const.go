@@ -19,6 +19,7 @@ const (
 	ChunkDeadChunkCopyThreshold = "chunk.deadChunkCopyThreshold"
 	DirectoryCheckTime          = "master.directoryCheckTime"
 	CleanupTime                 = "master.cleanupTime"
+	MasterLogLevel              = "master.logLevel"
 
 	// chunk server config
 	ChunkHeartbeatReconnectCount = "chunk.heartbeat.reconnectCount"
@@ -27,6 +28,7 @@ const (
 	ChunkCheckTime               = "chunk.storage.checkTime"
 	ChunkDeadTime                = "chunk.storage.chunkDeadTime"
 	ChunkReadyThreshold          = "chunk.readyThreshold"
+	ChunkLogLevel                = "chunk.logLevel"
 
 	// client config
 	ClientLogLevel = "client.logLevel"
@@ -178,11 +180,4 @@ const (
 const (
 	IsFile4AddFile = true
 	IsFile4AddDic  = false
-)
-
-const (
-	HeartbeatWatcher     = "HeartbeatWatcher"
-	PendingChunksWatcher = "PendingChunksWatcher"
-	FileTreeWatcher      = "FileTreeWatcher"
-	ChunksWatcher        = "ChunksWatcher"
 )
