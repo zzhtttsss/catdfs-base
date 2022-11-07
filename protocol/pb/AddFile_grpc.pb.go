@@ -28,11 +28,7 @@ type MasterAddServiceClient interface {
 	// GetDataNodes4Add Called by client.
 	// Allocate some DataNode to store a Chunk and select the primary DataNode
 	GetDataNodes4Add(ctx context.Context, in *GetDataNodes4AddArgs, opts ...grpc.CallOption) (*GetDataNodes4AddReply, error)
-	// UnlockDic4Add Called by client.
-	// Unlock all FileNodes in the target path which is used to add file.
-	UnlockDic4Add(ctx context.Context, in *UnlockDic4AddArgs, opts ...grpc.CallOption) (*UnlockDic4AddReply, error)
-	// ReleaseLease4Add Called by client.
-	// Release the lease of a chunk.
+	// Callback4Add Called by client. Return result of add operation.
 	Callback4Add(ctx context.Context, in *Callback4AddArgs, opts ...grpc.CallOption) (*Callback4AddReply, error)
 }
 
@@ -62,15 +58,6 @@ func (c *masterAddServiceClient) GetDataNodes4Add(ctx context.Context, in *GetDa
 	return out, nil
 }
 
-func (c *masterAddServiceClient) UnlockDic4Add(ctx context.Context, in *UnlockDic4AddArgs, opts ...grpc.CallOption) (*UnlockDic4AddReply, error) {
-	out := new(UnlockDic4AddReply)
-	err := c.cc.Invoke(ctx, "/pb.MasterAddService/UnlockDic4Add", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 func (c *masterAddServiceClient) Callback4Add(ctx context.Context, in *Callback4AddArgs, opts ...grpc.CallOption) (*Callback4AddReply, error) {
 	out := new(Callback4AddReply)
 	err := c.cc.Invoke(ctx, "/pb.MasterAddService/Callback4Add", in, out, opts...)
@@ -90,11 +77,7 @@ type MasterAddServiceServer interface {
 	// GetDataNodes4Add Called by client.
 	// Allocate some DataNode to store a Chunk and select the primary DataNode
 	GetDataNodes4Add(context.Context, *GetDataNodes4AddArgs) (*GetDataNodes4AddReply, error)
-	// UnlockDic4Add Called by client.
-	// Unlock all FileNodes in the target path which is used to add file.
-	UnlockDic4Add(context.Context, *UnlockDic4AddArgs) (*UnlockDic4AddReply, error)
-	// ReleaseLease4Add Called by client.
-	// Release the lease of a chunk.
+	// Callback4Add Called by client. Return result of add operation.
 	Callback4Add(context.Context, *Callback4AddArgs) (*Callback4AddReply, error)
 	mustEmbedUnimplementedMasterAddServiceServer()
 }
@@ -108,9 +91,6 @@ func (UnimplementedMasterAddServiceServer) CheckArgs4Add(context.Context, *Check
 }
 func (UnimplementedMasterAddServiceServer) GetDataNodes4Add(context.Context, *GetDataNodes4AddArgs) (*GetDataNodes4AddReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetDataNodes4Add not implemented")
-}
-func (UnimplementedMasterAddServiceServer) UnlockDic4Add(context.Context, *UnlockDic4AddArgs) (*UnlockDic4AddReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UnlockDic4Add not implemented")
 }
 func (UnimplementedMasterAddServiceServer) Callback4Add(context.Context, *Callback4AddArgs) (*Callback4AddReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Callback4Add not implemented")
@@ -164,24 +144,6 @@ func _MasterAddService_GetDataNodes4Add_Handler(srv interface{}, ctx context.Con
 	return interceptor(ctx, in, info, handler)
 }
 
-func _MasterAddService_UnlockDic4Add_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UnlockDic4AddArgs)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(MasterAddServiceServer).UnlockDic4Add(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/pb.MasterAddService/UnlockDic4Add",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MasterAddServiceServer).UnlockDic4Add(ctx, req.(*UnlockDic4AddArgs))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 func _MasterAddService_Callback4Add_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(Callback4AddArgs)
 	if err := dec(in); err != nil {
@@ -214,10 +176,6 @@ var MasterAddService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetDataNodes4Add",
 			Handler:    _MasterAddService_GetDataNodes4Add_Handler,
-		},
-		{
-			MethodName: "UnlockDic4Add",
-			Handler:    _MasterAddService_UnlockDic4Add_Handler,
 		},
 		{
 			MethodName: "Callback4Add",

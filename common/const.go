@@ -19,6 +19,7 @@ const (
 	ChunkDeadChunkCopyThreshold = "chunk.deadChunkCopyThreshold"
 	DirectoryCheckTime          = "master.directoryCheckTime"
 	CleanupTime                 = "master.cleanupTime"
+	MasterLogLevel              = "master.logLevel"
 
 	// chunk server config
 	ChunkHeartbeatReconnectCount = "chunk.heartbeat.reconnectCount"
@@ -27,6 +28,10 @@ const (
 	ChunkCheckTime               = "chunk.storage.checkTime"
 	ChunkDeadTime                = "chunk.storage.chunkDeadTime"
 	ChunkReadyThreshold          = "chunk.readyThreshold"
+	ChunkLogLevel                = "chunk.logLevel"
+
+	// client config
+	ClientLogLevel = "client.logLevel"
 
 	// etcd config
 	EtcdEndPoint = "etcd.endPoint"
@@ -88,7 +93,7 @@ const (
 	MasterHeartbeatFailed
 	MasterCheckArgs4AddFailed
 	MasterGetDataNodes4AddFailed
-	MasterUnlockDic4AddFailed
+	MasterCallback4AddFailed
 	MasterSendOperationFailed
 	MasterFinishOperationFailed
 	MasterCheckAndMkdirFailed

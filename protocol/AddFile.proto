@@ -38,25 +38,14 @@ message GetDataNodes4AddReply {
   repeated Array dataNodeAdds = 2;
 }
 
-// UnlockDic4AddArgs
-// fileNodeId: id of FileNode which has been stored by chunkserver and need to be unlocked.
-message UnlockDic4AddArgs {
+
+// Callback4AddArgs
+// chunkId: id of chunk which has been stored by chunkserver and need to release its lease
+message Callback4AddArgs {
   string fileNodeId = 1;
   string filePath = 2;
   repeated ChunkInfo4Add infos = 3;
   repeated string failChunkIds = 4;
-}
-
-message UnlockDic4AddReply {
-
-}
-
-// ReleaseLease4AddArgs
-// chunkId: id of chunk which has been stored by chunkserver and need to release its lease
-message Callback4AddArgs {
-  string fileNodeId = 1;
-  repeated ChunkInfo4Add infos = 2;
-  repeated string failChunkIds = 3;
 }
 
 message Callback4AddReply {
@@ -78,12 +67,7 @@ service MasterAddService {
   // Allocate some DataNode to store a Chunk and select the primary DataNode
   rpc GetDataNodes4Add(GetDataNodes4AddArgs) returns(GetDataNodes4AddReply);
 
-  // UnlockDic4Add Called by client.
-  // Unlock all FileNodes in the target path which is used to add file.
-  rpc UnlockDic4Add(UnlockDic4AddArgs) returns(UnlockDic4AddReply);
-
-  // ReleaseLease4Add Called by client.
-  // Release the lease of a chunk.
+  // Callback4Add Called by client. Return result of add operation.
   rpc Callback4Add(Callback4AddArgs) returns(Callback4AddReply);
 }
 
