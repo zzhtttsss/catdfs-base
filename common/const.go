@@ -91,7 +91,7 @@ const (
 	MasterHeartbeatFailed
 	MasterCheckArgs4AddFailed
 	MasterGetDataNodes4AddFailed
-	MasterUnlockDic4AddFailed
+	MasterCallback4AddFailed
 	MasterSendOperationFailed
 	MasterFinishOperationFailed
 	MasterCheckAndMkdirFailed
@@ -178,4 +178,11 @@ const (
 const (
 	IsFile4AddFile = true
 	IsFile4AddDic  = false
+)
+
+const (
+	HeartbeatWatcher     = "HeartbeatWatcher"
+	PendingChunksWatcher = "PendingChunksWatcher"
+	FileTreeWatcher      = "FileTreeWatcher"
+	ChunksWatcher        = "ChunksWatcher"
 )
