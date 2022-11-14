@@ -129,6 +129,7 @@ const (
 const (
 	ChunkIdString    = "chunkId"
 	AddressString    = "address"
+	FileSizeString   = "fileSize"
 	ChunkIndexString = "ChunkIndex"
 )
 
