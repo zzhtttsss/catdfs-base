@@ -21,6 +21,7 @@ const (
 	CleanupTime                 = "master.cleanupTime"
 	StorableCheckTime           = "master.storableCheckTime"
 	StorableThreshold           = "master.storableThreshold"
+	ExpandThreshold             = "master.expandThreshold"
 	MasterLogLevel              = "master.logLevel"
 
 	// chunk server config

@@ -4,6 +4,8 @@ option go_package="/pb";
 
 message DNRegisterArgs {
   repeated string ChunkIds = 1;
+  int64 FullCapacity = 2;
+  int64 UsedCapacity = 3;
 }
 
 message DNRegisterReply {
