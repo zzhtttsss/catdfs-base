@@ -6,9 +6,10 @@ message HeartbeatArgs {
   string Id = 1;
   repeated string ChunkId = 2;
   int64 IOLoad = 3;
-  repeated ChunkInfo SuccessChunkInfos = 4;
-  repeated ChunkInfo FailChunkInfos = 5;
-  bool IsReady = 6;
+  int64 DiskUsage = 4;
+  repeated ChunkInfo SuccessChunkInfos = 5;
+  repeated ChunkInfo FailChunkInfos = 6;
+  bool IsReady = 7;
 }
 
 message HeartbeatReply {
