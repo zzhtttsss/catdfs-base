@@ -5,8 +5,9 @@ option go_package="/pb";
 message HeartbeatArgs {
   string Id = 1;
   repeated string ChunkId = 2;
-  int64 FullCapacity = 3;
-  int64 UsedCapacity = 4;
+  int64 IOLoad = 3;
+  int64 FullCapacity = 4;
+  int64 UsedCapacity = 5;
   repeated ChunkInfo SuccessChunkInfos = 6;
   repeated ChunkInfo FailChunkInfos = 7;
   bool IsReady = 8;

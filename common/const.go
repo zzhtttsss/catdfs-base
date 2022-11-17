@@ -19,6 +19,7 @@ const (
 	ChunkDeadChunkCopyThreshold = "chunk.deadChunkCopyThreshold"
 	DirectoryCheckTime          = "master.directoryCheckTime"
 	CleanupTime                 = "master.cleanupTime"
+	StorableCheckTime           = "master.storableCheckTime"
 	MasterLogLevel              = "master.logLevel"
 
 	// chunk server config
