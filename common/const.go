@@ -20,6 +20,7 @@ const (
 	DirectoryCheckTime          = "master.directoryCheckTime"
 	CleanupTime                 = "master.cleanupTime"
 	StorableCheckTime           = "master.storableCheckTime"
+	StorableThreshold           = "master.storableThreshold"
 	MasterLogLevel              = "master.logLevel"
 
 	// chunk server config
@@ -166,8 +167,9 @@ const (
 	OperationAllocateChunks = "AllocateChunks"
 	OperationExpand         = "Expand"
 	OperationDegrade        = "Degrade"
-	OperationTreeCheck      = "TreeCheck"
-	OperationDataCheck      = "DataCheck"
+	OperationFileTreeCheck  = "FileTreeCheck"
+	OperationChunksCheck    = "ChunksCheck"
+	OperationDataNodesCheck = "DataNodesCheck"
 )
 
 // operation stage
