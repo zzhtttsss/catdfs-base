@@ -30,6 +30,7 @@ const (
 	ChunkStoragePath             = "chunk.storage.path"
 	ChunkCheckTime               = "chunk.storage.checkTime"
 	ChunkDeadTime                = "chunk.storage.chunkDeadTime"
+	ChunkCapacity                = "chunk.storage.capacity"
 	ChunkReadyThreshold          = "chunk.readyThreshold"
 	ChunkLogLevel                = "chunk.logLevel"
 
