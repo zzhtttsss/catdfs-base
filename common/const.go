@@ -19,6 +19,9 @@ const (
 	ChunkDeadChunkCopyThreshold = "chunk.deadChunkCopyThreshold"
 	DirectoryCheckTime          = "master.directoryCheckTime"
 	CleanupTime                 = "master.cleanupTime"
+	StorableCheckTime           = "master.storableCheckTime"
+	StorableThreshold           = "master.storableThreshold"
+	ExpandThreshold             = "master.expandThreshold"
 	MasterLogLevel              = "master.logLevel"
 
 	// chunk server config
@@ -27,6 +30,7 @@ const (
 	ChunkStoragePath             = "chunk.storage.path"
 	ChunkCheckTime               = "chunk.storage.checkTime"
 	ChunkDeadTime                = "chunk.storage.chunkDeadTime"
+	ChunkCapacity                = "chunk.storage.capacity"
 	ChunkReadyThreshold          = "chunk.readyThreshold"
 	ChunkLogLevel                = "chunk.logLevel"
 
@@ -165,8 +169,9 @@ const (
 	OperationAllocateChunks = "AllocateChunks"
 	OperationExpand         = "Expand"
 	OperationDegrade        = "Degrade"
-	OperationTreeCheck      = "TreeCheck"
-	OperationDataCheck      = "DataCheck"
+	OperationFileTreeCheck  = "FileTreeCheck"
+	OperationChunksCheck    = "ChunksCheck"
+	OperationDataNodesCheck = "DataNodesCheck"
 )
 
 // operation stage
