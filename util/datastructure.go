@@ -2,6 +2,7 @@ package util
 
 import (
 	"fmt"
+	"github.com/schollz/progressbar/v3"
 	"strings"
 	"sync"
 	"tinydfs-base/common"
@@ -117,4 +118,16 @@ func ConvReply2SingleResult(reply *pb.TransferChunkReply, dataNodeIds []string,
 	singleSendResult.SuccessDataNodes = successDataNodes
 	singleSendResult.FailDataNodes = failDataNodes
 	return singleSendResult
+}
+
+func GetProgressBar(size int64, description string, itsString string) *progressbar.ProgressBar {
+	return progressbar.NewOptions64(size, progressbar.OptionSetDescription(description),
+		progressbar.OptionEnableColorCodes(true), progressbar.OptionSetItsString(itsString),
+		progressbar.OptionShowIts(), progressbar.OptionSetTheme(progressbar.Theme{
+			Saucer:        "[green]=[reset]",
+			SaucerHead:    "[green]>[reset]",
+			SaucerPadding: " ",
+			BarStart:      "[",
+			BarEnd:        "]",
+		}))
 }

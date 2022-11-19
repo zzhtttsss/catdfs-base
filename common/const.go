@@ -134,6 +134,7 @@ const (
 	ChunkIdString    = "chunkId"
 	AddressString    = "address"
 	ChunkSizeString  = "chunkSize"
+	CheckSumString   = "checkSum"
 	ChunkIndexString = "ChunkIndex"
 )
 
