@@ -16,6 +16,7 @@ message CheckAndGetReply {
   string fileNodeId = 1;
   int32 chunkNum = 2;
   string operationId = 3;
+  int64 fileSize=4;
 }
 
 // GetDataNodes4GetArgs
@@ -35,8 +36,6 @@ message GetDataNodes4GetReply {
   repeated string dataNodeIds = 1;
   repeated string dataNodeAddrs = 2;
   int32 chunkIndex = 3;
-  int64 chunkSize = 4;
-
 }
 
 // SetupStream2DataNodeArgs sets up the stream with the datanode and then transfer data
