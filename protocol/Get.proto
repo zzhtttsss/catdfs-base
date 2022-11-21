@@ -30,10 +30,12 @@ message GetDataNodes4GetArgs {
 // primaryNodeId: id of the primary DataNode
 // primaryNodeAddr: address of the primary DataNode
 // chunkIndex: index of current chunk index of the file
+// chunkSize: the size of current chunk
 message GetDataNodes4GetReply {
   repeated string dataNodeIds = 1;
   repeated string dataNodeAddrs = 2;
   int32 chunkIndex = 3;
+  int64 chunkSize = 4;
 
 }
 
