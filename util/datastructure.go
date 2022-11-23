@@ -86,7 +86,7 @@ func (q *Queue[T]) String() string {
 	return sb.String()
 }
 
-type ChunkSendResult struct {
+type ChunkTaskResult struct {
 	ChunkId          string   `json:"chunk_id"`
 	FailDataNodes    []string `json:"fail_data_nodes"`
 	SuccessDataNodes []string `json:"success_data_nodes"`
@@ -94,8 +94,8 @@ type ChunkSendResult struct {
 }
 
 func ConvReply2SingleResult(reply *pb.TransferChunkReply, dataNodeIds []string,
-	adds []string, sendType int) *ChunkSendResult {
-	singleSendResult := &ChunkSendResult{
+	adds []string, sendType int) *ChunkTaskResult {
+	singleSendResult := &ChunkTaskResult{
 		ChunkId:  reply.ChunkId,
 		SendType: sendType,
 	}

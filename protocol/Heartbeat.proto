@@ -10,7 +10,8 @@ message HeartbeatArgs {
   int64 UsedCapacity = 5;
   repeated ChunkInfo SuccessChunkInfos = 6;
   repeated ChunkInfo FailChunkInfos = 7;
-  bool IsReady = 8;
+  repeated string InvalidChunks = 8;
+  bool IsReady = 9;
 }
 
 message HeartbeatReply {
