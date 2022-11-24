@@ -9,6 +9,7 @@ import (
 	"unsafe"
 )
 
+// GenerateUUIDString generates a UUID string.
 func GenerateUUIDString() string {
 	return uuid.NewString()
 }
@@ -20,10 +21,12 @@ func Interfaces2TypeArr[T interface{}](arr []interface{}) (res []T) {
 	return
 }
 
+// CRC32String returns the CRC-32 checksum of data in string format.
 func CRC32String(bytes []byte) string {
 	return strconv.Itoa(int(crc32.ChecksumIEEE(bytes)))
 }
 
+// CRC32 returns the CRC-32 checksum of data.
 func CRC32(bytes []byte) uint32 {
 	return crc32.ChecksumIEEE(bytes)
 }
@@ -40,6 +43,7 @@ func String2Bytes(s string) []byte {
 	return *(*[]byte)(unsafe.Pointer(&bh))
 }
 
+// Bytes2String is faster method to convert byte array to string.
 func Bytes2String(b []byte) string {
 	return *(*string)(unsafe.Pointer(&b))
 }
