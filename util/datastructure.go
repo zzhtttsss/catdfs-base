@@ -2,6 +2,7 @@ package util
 
 import (
 	"fmt"
+	"github.com/schollz/progressbar/v3"
 	"strings"
 	"sync"
 	"tinydfs-base/common"
@@ -85,16 +86,18 @@ func (q *Queue[T]) String() string {
 	return sb.String()
 }
 
-type ChunkSendResult struct {
+// ChunkTaskResult represents the result of a chunk task.
+type ChunkTaskResult struct {
 	ChunkId          string   `json:"chunk_id"`
 	FailDataNodes    []string `json:"fail_data_nodes"`
 	SuccessDataNodes []string `json:"success_data_nodes"`
 	SendType         int      `json:"send_type"`
 }
 
+// ConvReply2SingleResult converts the reply to ChunkTaskResult.
 func ConvReply2SingleResult(reply *pb.TransferChunkReply, dataNodeIds []string,
-	adds []string, sendType int) *ChunkSendResult {
-	singleSendResult := &ChunkSendResult{
+	adds []string, sendType int) *ChunkTaskResult {
+	singleSendResult := &ChunkTaskResult{
 		ChunkId:  reply.ChunkId,
 		SendType: sendType,
 	}
@@ -117,4 +120,17 @@ func ConvReply2SingleResult(reply *pb.TransferChunkReply, dataNodeIds []string,
 	singleSendResult.SuccessDataNodes = successDataNodes
 	singleSendResult.FailDataNodes = failDataNodes
 	return singleSendResult
+}
+
+// GetProgressBar returns a progressbar instance.
+func GetProgressBar(size int64, description string, itsString string) *progressbar.ProgressBar {
+	return progressbar.NewOptions64(size, progressbar.OptionSetDescription(description),
+		progressbar.OptionEnableColorCodes(true), progressbar.OptionSetItsString(itsString),
+		progressbar.OptionShowIts(), progressbar.OptionSetTheme(progressbar.Theme{
+			Saucer:        "[green]=[reset]",
+			SaucerHead:    "[green]>[reset]",
+			SaucerPadding: " ",
+			BarStart:      "[",
+			BarEnd:        "]",
+		}))
 }

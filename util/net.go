@@ -5,6 +5,7 @@ import (
 	"net"
 )
 
+// GetLocalIP returns the local IP address.
 func GetLocalIP() (ip string, err error) {
 	addrs, err := net.InterfaceAddrs()
 	if err != nil {
